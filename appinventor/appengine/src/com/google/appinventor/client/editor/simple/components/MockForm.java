@@ -209,6 +209,10 @@ public final class MockForm extends MockContainer {
   private boolean landscape = false;
   private int idxPhoneSize = 0;
 
+  //Default values for theme style
+  private int idxThemeStyle = 0;
+  private String chosenThemeStyle;
+
   // Property names
   private static final String PROPERTY_NAME_TITLE = "Title";
   private static final String PROPERTY_NAME_SCREEN_ORIENTATION = "ScreenOrientation";
@@ -332,6 +336,18 @@ public final class MockForm extends MockContainer {
     }
   }
 
+  public void changeThemeStyle(int idx, String chosenStyle) {
+    idxThemeStyle = idx;
+    chosenThemeStyle=chosenStyle;
+
+    setPhoneThemeStyle();
+//    if (landscape) {
+//      resizePanel(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT);
+//    } else {
+//      resizePanel(width, height);
+//    }
+  }
+
   private void setPhoneStyle() {
     if (landscape) {
       if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscape");
@@ -346,6 +362,22 @@ public final class MockForm extends MockContainer {
       navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarPortrait");
     }
   }
+
+  private void setPhoneThemeStyle() {
+//    if (landscape) {
+//      if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscape");
+//      else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscapeTablet");
+//      else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscapeMonitor");
+//      navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarLandscape");
+//    }
+//    else {
+      if (idxThemeStyle == 0) formWidget.setStylePrimaryName("ode-SimpleMockFormAndroidHolo");
+//      else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitTablet");
+//      else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitMonitor");
+      navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarPortrait");
+    //}
+  }
+
   /*
    * Resizes the scrollPanel, responsivePanel, and formWidget based on the screen size.
    */
@@ -371,7 +403,7 @@ public final class MockForm extends MockContainer {
     }
   }
 
-   /*
+  /*
    * Returns the width of a vertical scroll bar, calculating it if necessary.
    */
   private static int getVerticalScrollbarWidth() {
@@ -1021,12 +1053,14 @@ public final class MockForm extends MockContainer {
     } else if (propertyName.equals(PROPERTY_NAME_ACTIONBAR)) {
       setActionBarProperty(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_THEME)) {
-      setTheme(newValue);
       if ("Classic".equals(newValue)) {
+        editor.getVisibleComponentsPanel().enableThemePreviewCheckBox(false);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("False");
       } else {
+        editor.getVisibleComponentsPanel().enableThemePreviewCheckBox(true);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("True");
       }
+      setTheme(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_PRIMARY_COLOR)) {
       setPrimaryColor(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_PRIMARY_COLOR_DARK)) {

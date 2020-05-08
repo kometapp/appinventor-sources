@@ -37,7 +37,9 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
   private final VerticalPanel phoneScreen;
   private final CheckBox checkboxShowHiddenComponents;
   private final ListBox listboxPhoneTablet; // A ListBox for Phone/Tablet/Monitor preview sizes
+  private final ListBox listboxThemePreview; // A ListBox for Holo/Material/iOS preview themes styles
   private final int[][] drop_lst = { {320, 505}, {480, 675}, {768, 1024} };
+  private final String[] drop_lst_preview_theme = { "Android 3.0-4.4.2", "Android 5.0-10.0", "iOS" };
 
   // Corresponding panel for non-visible components (because we allow users to drop
   // non-visible components onto the form, but we show them in the non-visible
@@ -128,6 +130,33 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
 
     phoneScreen.add(listboxPhoneTablet);
 
+    listboxThemePreview = new ListBox() {
+      @Override
+      protected void onLoad() {
+        // onLoad is called immediately after a widget becomes attached to the browser's document.
+        String themeStyle = projectEditor.getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME);
+        boolean classic = (themeStyle.equals("Classic"));
+        listboxThemePreview.setVisible(!classic);
+      }
+    };
+    listboxThemePreview.addItem("Android Holo");
+    listboxThemePreview.addItem("Android Material");
+    listboxThemePreview.addItem("iOS");
+    listboxThemePreview.addChangeHandler(new ChangeHandler() {
+      @Override
+      public void onChange(ChangeEvent event) {
+        int idx = listboxThemePreview.getSelectedIndex();
+        String chosenVal = drop_lst_preview_theme[idx];
+        // here, we can change settings by putting chosenStyle value into it
+        projectEditor.changeProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+            SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME_PREVIEW, chosenVal);
+        changeFormThemeStyle(idx, chosenVal);
+      }
+    });
+
+    phoneScreen.add(listboxThemePreview);
+
     initWidget(phoneScreen);
   }
 
@@ -182,6 +211,29 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
     // change settings
   }
 
+  private void changeFormThemeStyle(int idx, String chosenVal) {
+
+    if (form == null)
+      return;
+
+    form.changeThemeStyle(idx, chosenVal);
+    String info = " (" + chosenVal + ")";
+    if (idx == 0) {
+      listboxThemePreview.setItemText(idx, MESSAGES.previewAndroidHolo() + info);
+      listboxThemePreview.setItemText(1, MESSAGES.previewAndroidMaterial());
+      listboxThemePreview.setItemText(2, MESSAGES.previewIOS());
+    } else if (idx == 1) {
+      listboxThemePreview.setItemText(idx, MESSAGES.previewAndroidMaterial() + info);
+      listboxThemePreview.setItemText(0, MESSAGES.previewAndroidHolo());
+      listboxThemePreview.setItemText(2, MESSAGES.previewIOS());
+    } else {
+      listboxThemePreview.setItemText(idx, MESSAGES.previewIOS() + info);
+      listboxThemePreview.setItemText(0, MESSAGES.previewAndroidHolo());
+      listboxThemePreview.setItemText(1, MESSAGES.previewAndroidMaterial());
+    }
+    // change settings
+  }
+
   public void enableTabletPreviewCheckBox(boolean enable){
     if (form != null){
       if (!enable){
@@ -193,6 +245,17 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
       }
     }
     listboxPhoneTablet.setEnabled(enable);
+  }
+
+  public void enableThemePreviewCheckBox(boolean enable){
+    if (form != null){
+      if (!enable){
+        listboxThemePreview.setVisible(enable);
+      } else {
+        listboxThemePreview.setVisible(enable);
+      }
+    }
+    listboxThemePreview.setEnabled(enable);
   }
 
   /**
