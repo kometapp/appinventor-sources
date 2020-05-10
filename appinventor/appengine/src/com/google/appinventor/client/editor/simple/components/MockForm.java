@@ -371,7 +371,7 @@ public final class MockForm extends MockContainer {
 //      navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarLandscape");
 //    }
 //    else {
-      if (idxThemeStyle == 0) formWidget.setStylePrimaryName("ode-SimpleMockFormAndroidHolo");
+      if (idxThemeStyle == 0) formWidget.addStyleDependentName("AndroidHolo");
 //      else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitTablet");
 //      else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitMonitor");
       navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarPortrait");
