@@ -6,10 +6,13 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-.ode-SimpleMockForm-AndroidHolo {
-  height: auto !important;
-  background-color: #555;
-  border: 2px solid black;
-  -webkit-display: flex;
-  display: flex;
+.ode-SimpleMockFormPhoneBarAndroidHolo {
+  background-color: #000000;
+}
+
+.ode-SimpleMockFormPhoneBarAndroidHolo .ode-SimpleMockFormTitle {
+  padding: 0;
+  top: 4px;
+  left: 12px;
+  position: absolute;
 }

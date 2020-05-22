@@ -32,18 +32,11 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style;
 
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.Timer;
 
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.TreeItem;
+import com.google.gwt.user.client.ui.*;
 
 /**
  * Mock Form component. This implementation provides two main preview sizes corresponding to
@@ -133,6 +126,12 @@ public final class MockForm extends MockContainer {
     // UI elements
     private DockPanel bar;
     private Image phoneBarImage;
+    private HorizontalPanel panel;
+    private Image phoneBarBatteryImage;
+    private Image phoneBarSignalImage;
+    private Image phoneBarWifiImage;
+    private String primaryDarkStatusBar;
+    private Label time;
 
     /*
      * Creates a new phone status bar.
@@ -146,7 +145,32 @@ public final class MockForm extends MockContainer {
 
       initWidget(bar);
 
-      setStylePrimaryName("ode-SimpleMockFormPhoneBar");
+      setStylePrimaryName("ode-SimpleMockFormPhoneBarAndroidHolo");
+      setSize("100%", HEIGHT + "px");
+    }
+
+    PhoneBar(String color) {
+      phoneBarWifiImage = new Image(images.phonebarWifi());
+      phoneBarSignalImage = new Image(images.phonebarSignal());
+      phoneBarBatteryImage = new Image(images.phonebarBattery());
+      time= new Label("12:30");
+      time.setStyleName("AndroidMaterialTimeIcon");
+
+      panel=new HorizontalPanel();
+      panel.add(phoneBarWifiImage);
+      panel.add(phoneBarSignalImage);
+      panel.add(phoneBarBatteryImage);
+      panel.add(time);
+      panel.setStyleName("AndroidMaterialIconsPanel");
+
+      bar = new DockPanel();
+      bar.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
+      bar.add(panel, DockPanel.EAST);
+
+      initWidget(bar);
+      MockComponentsUtil.setWidgetBackgroundColor(bar, color);
+
+      setStylePrimaryName("ode-SimpleMockFormPhoneBarAndroidMaterial");
       setSize("100%", HEIGHT + "px");
     }
   }
@@ -164,7 +188,6 @@ public final class MockForm extends MockContainer {
     /*
      * Creates a new phone navigation bar; Shows at the bottom of the viewer.
      */
-
     NavigationBar() {
       bar = new AbsolutePanel();
       initWidget(bar);
@@ -211,7 +234,8 @@ public final class MockForm extends MockContainer {
 
   //Default values for theme style
   private int idxThemeStyle = 0;
-  private String chosenThemeStyle;
+  private boolean changePreviewFlag;
+  private String primaryDarkColor;
 
   // Property names
   private static final String PROPERTY_NAME_TITLE = "Title";
@@ -240,6 +264,7 @@ public final class MockForm extends MockContainer {
 
   ScrollPanel scrollPanel;
   private TitleBar titleBar;
+  private PhoneBar phoneBar;
   private NavigationBar navigationBar;
   private List<MockComponent> selectedComponents = new ArrayList<MockComponent>(Collections.singleton(this));
 
@@ -289,7 +314,8 @@ public final class MockForm extends MockContainer {
     responsivePanel = new AbsolutePanel();
 
     // Initialize mock form UI by adding the phone bar and title bar.
-    responsivePanel.add(new PhoneBar());
+    changePreview();
+    responsivePanel.add(phoneBar);
     titleBar = new TitleBar();
     responsivePanel.add(titleBar);
 
@@ -336,11 +362,11 @@ public final class MockForm extends MockContainer {
     }
   }
 
-  public void changeThemeStyle(int idx, String chosenStyle) {
+  public void changeThemePreview(int idx) {
     idxThemeStyle = idx;
-    chosenThemeStyle=chosenStyle;
+    changePreviewFlag=true;
+    changePreview();
 
-    setPhoneThemeStyle();
 //    if (landscape) {
 //      resizePanel(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT);
 //    } else {
@@ -361,21 +387,6 @@ public final class MockForm extends MockContainer {
       else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitMonitor");
       navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarPortrait");
     }
-  }
-
-  private void setPhoneThemeStyle() {
-//    if (landscape) {
-//      if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscape");
-//      else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscapeTablet");
-//      else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscapeMonitor");
-//      navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarLandscape");
-//    }
-//    else {
-      if (idxThemeStyle == 0) formWidget.addStyleDependentName("AndroidHolo");
-//      else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitTablet");
-//      else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitMonitor");
-      navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarPortrait");
-    //}
   }
 
   /*
@@ -401,6 +412,36 @@ public final class MockForm extends MockContainer {
     if (!scrollable) {
       changeProperty(PROPERTY_NAME_HEIGHT, "" + usableScreenHeight);
     }
+  }
+
+  /*
+   * Changes the preview of MockForm based on Android Holo, Android Material and iOS styles
+   */
+  private void changePreview() {
+    // this condition prevents adding multiple phoneBars
+    if (changePreviewFlag) responsivePanel.remove(phoneBar);
+    // making the preview changes
+    if (idxThemeStyle == 0) {
+      phoneBar = new PhoneBar();
+      formWidget.addStyleDependentName("AndroidHolo");
+    } else if (idxThemeStyle == 1) {
+      phoneBar = new PhoneBar(primaryDarkColor);
+      formWidget.addStyleDependentName("AndroidMaterial");
+    }
+
+    // updating changes to the MockForm
+    if (changePreviewFlag) {
+      formWidget.remove(responsivePanel);
+      formWidget.remove(navigationBar);
+
+      responsivePanel.add(phoneBar);
+      responsivePanel.add(titleBar);
+      responsivePanel.add(scrollPanel);
+
+      formWidget.add(responsivePanel);
+      formWidget.add(navigationBar);
+    }
+    changePreviewFlag = false;
   }
 
   /*
@@ -729,6 +770,7 @@ public final class MockForm extends MockContainer {
           SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
           SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR_DARK, color);
     }
+    primaryDarkColor= color;
   }
 
   private void setAccentColor(String color) {
@@ -1065,6 +1107,7 @@ public final class MockForm extends MockContainer {
       setPrimaryColor(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_PRIMARY_COLOR_DARK)) {
       setPrimaryColorDark(newValue);
+      if(idxThemeStyle==1) MockComponentsUtil.setWidgetBackgroundColor(phoneBar, newValue);
     } else if (propertyName.equals(PROPERTY_NAME_ACCENT_COLOR)) {
       setAccentColor(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_HORIZONTAL_ALIGNMENT)) {

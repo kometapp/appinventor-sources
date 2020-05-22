@@ -6,6 +6,7 @@
 
 package com.google.appinventor.client.editor.simple;
 
+import com.google.appinventor.client.output.OdeLog;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import static com.google.appinventor.client.Ode.MESSAGES;
@@ -40,6 +41,7 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
   private final ListBox listboxThemePreview; // A ListBox for Holo/Material/iOS preview themes styles
   private final int[][] drop_lst = { {320, 505}, {480, 675}, {768, 1024} };
   private final String[] drop_lst_preview_theme = { "Android 3.0-4.4.2", "Android 5.0-10.0", "iOS" };
+  private String themeStyle;
 
   // Corresponding panel for non-visible components (because we allow users to drop
   // non-visible components onto the form, but we show them in the non-visible
@@ -134,7 +136,7 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
       @Override
       protected void onLoad() {
         // onLoad is called immediately after a widget becomes attached to the browser's document.
-        String themeStyle = projectEditor.getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+        themeStyle = projectEditor.getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
                 SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME);
         boolean classic = (themeStyle.equals("Classic"));
         listboxThemePreview.setVisible(!classic);
@@ -151,7 +153,7 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
         // here, we can change settings by putting chosenStyle value into it
         projectEditor.changeProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
             SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME_PREVIEW, chosenVal);
-        changeFormThemeStyle(idx, chosenVal);
+        changeFormThemePreview(idx, chosenVal);
       }
     });
 
@@ -211,12 +213,12 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
     // change settings
   }
 
-  private void changeFormThemeStyle(int idx, String chosenVal) {
+  private void changeFormThemePreview(int idx, String chosenVal) {
 
     if (form == null)
       return;
 
-    form.changeThemeStyle(idx, chosenVal);
+    form.changeThemePreview(idx);
     String info = " (" + chosenVal + ")";
     if (idx == 0) {
       listboxThemePreview.setItemText(idx, MESSAGES.previewAndroidHolo() + info);
