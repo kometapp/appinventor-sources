@@ -1079,6 +1079,7 @@ select.ode-PropertyEditor[disabled] {
   background-color: dimgray;
   color: white;
   font-size: 90%;
+  position: relative;
   border-bottom: 1px solid lightgray;
 }
 
@@ -1086,6 +1087,7 @@ select.ode-PropertyEditor[disabled] {
   background-color: #a5cf47;
   color: white;
   font-size: 20px;
+  position: relative;
 }
 
 .ode-SimpleMockFormTitle {
@@ -1096,6 +1098,7 @@ select.ode-PropertyEditor[disabled] {
 }
 
 .ode-SimpleMockFormTitleBar-ActionBar .ode-SimpleMockFormTitle {
+
   padding: 16px;
   top: 0;
   left: 0;
