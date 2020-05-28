@@ -11,14 +11,11 @@ import com.google.appinventor.client.editor.youngandroid.BlocklyPanel;
 import com.google.appinventor.client.output.OdeLog;
 import com.google.appinventor.shared.rpc.project.ProjectNode;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.*;
 
 import static com.google.appinventor.client.Ode.MESSAGES;
 
@@ -64,12 +61,18 @@ public class ShowBarcodeCommand extends ChainableCommand {
     BarcodeDialogBox(String projectName, final String appInstallUrl) {
       super(false, true);
       setStylePrimaryName("ode-DialogBox");
-      setText(MESSAGES.barcodeTitle(projectName));
+      setText(MESSAGES.downloadApkDialog(projectName));
 
       // Main layout panel
       VerticalPanel contentPanel = new VerticalPanel();
 
-      // Download button
+      // Container
+      HorizontalPanel container = new HorizontalPanel();
+
+      // Container > Left
+      VerticalPanel left = new VerticalPanel();
+
+      // Container > Left > Download button
       ClickHandler downloadHandler = new ClickHandler() {
         @Override
         public void onClick(ClickEvent event) {
@@ -81,16 +84,36 @@ public class ShowBarcodeCommand extends ChainableCommand {
       Button downloadButton = new Button(MESSAGES.barcodeDownload());
       downloadButton.addClickHandler(downloadHandler);
       downloadPanel.add(downloadButton);
-      downloadPanel.setSize("100%", "24px");
-      contentPanel.add(downloadPanel);
+      downloadPanel.setSize("100%", "30px");
+      left.add(downloadPanel);
 
-      // QR Code
-      HTML barcodeQrcode = new HTML("<center>" + BlocklyPanel.getQRCode(appInstallUrl) + "</center>");
-      contentPanel.add(barcodeQrcode);
-
-      // Link
+      // Container > Left > Link
       HTML linkQrcode = new HTML("<center><a href=\"" + appInstallUrl + "\" target=\"_blank\">" + appInstallUrl + "</a></center>");
-      contentPanel.add(linkQrcode);
+      left.add(linkQrcode);
+
+      // Container > Left > Warning
+      HorizontalPanel warningPanel = new HorizontalPanel();
+      warningPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+      HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
+              "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
+                      "\" target=\"_blank\">",
+              "</a>"));
+      warningLabel.setWordWrap(true);
+      warningLabel.setWidth("200px");  // set width to get the text to wrap
+      warningLabel.getElement().getStyle().setMarginTop(25, Style.Unit.PX);
+      warningPanel.add(warningLabel);
+      left.add(warningPanel);
+
+      // Container > Right
+      VerticalPanel right = new VerticalPanel();
+
+      // Container > Right > Barcode
+      HTML barcodeQrcode = new HTML("<center>" + BlocklyPanel.getQRCode(appInstallUrl) + "</center>");
+      right.add(barcodeQrcode);
+
+      container.add(left);
+      container.add(right);
+      contentPanel.add(container);
 
       // OK button
       ClickHandler buttonHandler = new ClickHandler() {
@@ -105,25 +128,13 @@ public class ShowBarcodeCommand extends ChainableCommand {
       okButton.addClickHandler(buttonHandler);
       buttonPanel.add(okButton);
       // The cancel button is removed from the panel since it has no meaning in this
-      // context.  But the logic is still here in case we want to restore it, and as
+      // context. But the logic is still here in case we want to restore it, and as
       // an example of how to code this stuff in GWT.
       // buttonPanel.add(cancelButton);
       // Button cancelButton = new Button(MESSAGES.cancelButton());
       // cancelButton.addClickHandler(buttonHandler);
       buttonPanel.setSize("100%", "24px");
       contentPanel.add(buttonPanel);
-
-      // Warning label
-      HorizontalPanel warningPanel = new HorizontalPanel();
-      warningPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-      HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
-              "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
-                      "\" target=\"_blank\">",
-              "</a>"));
-      warningLabel.setWordWrap(true);
-      warningLabel.setWidth("200px");  // set width to get the text to wrap
-      warningPanel.add(warningLabel);
-      contentPanel.add(warningPanel);
 
 //      contentPanel.setSize("320px", "100%");
       add(contentPanel);
