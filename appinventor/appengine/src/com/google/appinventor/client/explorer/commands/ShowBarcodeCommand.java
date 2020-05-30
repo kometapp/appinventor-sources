@@ -11,13 +11,17 @@ import com.google.appinventor.client.editor.youngandroid.BlocklyPanel;
 import com.google.appinventor.client.output.OdeLog;
 import com.google.appinventor.shared.rpc.project.ProjectNode;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -85,13 +89,27 @@ public class ShowBarcodeCommand extends ChainableCommand {
       };
       HorizontalPanel downloadPanel = new HorizontalPanel();
       downloadPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
-      Button downloadButton = new Button(MESSAGES.barcodeDownload());
+      Button downloadButton = new Button(/*MESSAGES.barcodeDownload()*/);
+      downloadButton.addStyleName("button-download");
+      // Image
+      Image downloadIcon = new Image(Ode.getImageBundle().GetApp());
+      downloadIcon.setSize("50px", "50px");
+      downloadButton.getElement().appendChild(downloadIcon.getElement());
+      // Inner Text
+      SpanElement text = Document.get().createSpanElement();
+      text.setInnerHTML(MESSAGES.barcodeDownload());
+      downloadButton.getElement().appendChild(text);
       downloadButton.addClickHandler(downloadHandler);
       downloadPanel.add(downloadButton);
       downloadPanel.setSize("100%", "30px");
       left.add(downloadPanel);
 
       // Container > Left > Link
+      VerticalPanel linkPanel = new VerticalPanel();
+      linkPanel.getElement().getStyle().setTextAlign(Style.TextAlign.CENTER);
+      Anchor link = new Anchor(appInstallUrl);
+      link.setHref(appInstallUrl);
+      link.setTarget("_blank");
       HTML linkQrcode = new HTML("<center><a href=\"" + appInstallUrl + "\" target=\"_blank\">" + appInstallUrl + "</a></center>");
       left.add(linkQrcode);
 
