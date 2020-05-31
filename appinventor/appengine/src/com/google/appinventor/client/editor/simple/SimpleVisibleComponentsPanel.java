@@ -6,12 +6,10 @@
 
 package com.google.appinventor.client.editor.simple;
 
-import com.google.appinventor.client.output.OdeLog;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import static com.google.appinventor.client.Ode.MESSAGES;
 import com.google.appinventor.client.editor.ProjectEditor;
-import com.google.appinventor.client.editor.simple.components.MockComponent;
 import com.google.appinventor.client.editor.simple.components.MockForm;
 import com.google.appinventor.client.editor.simple.palette.SimplePaletteItem;
 import com.google.appinventor.client.explorer.project.ComponentDatabaseChangeListener;
@@ -38,10 +36,9 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
   private final VerticalPanel phoneScreen;
   private final CheckBox checkboxShowHiddenComponents;
   private final ListBox listboxPhoneTablet; // A ListBox for Phone/Tablet/Monitor preview sizes
-  private final ListBox listboxThemePreview; // A ListBox for Holo/Material/iOS preview themes styles
+  private final ListBox listboxPhonePreview; // A ListBox for Holo/Material/iOS preview styles
   private final int[][] drop_lst = { {320, 505}, {480, 675}, {768, 1024} };
-  private final String[] drop_lst_preview_theme = { "Android 3.0-4.4.2", "Android 5.0-10.0", "iOS" };
-  private String themeStyle;
+  private final String[] drop_lst_phone_preview = { "Android 5.0-10.0", "Android 3.0-4.4.2", "iOS" };
 
   // Corresponding panel for non-visible components (because we allow users to drop
   // non-visible components onto the form, but we show them in the non-visible
@@ -132,32 +129,32 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
 
     phoneScreen.add(listboxPhoneTablet);
 
-    listboxThemePreview = new ListBox() {
+    listboxPhonePreview = new ListBox() {
       @Override
       protected void onLoad() {
         // onLoad is called immediately after a widget becomes attached to the browser's document.
-        themeStyle = projectEditor.getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+        String previewStyle = projectEditor.getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
                 SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME);
-        boolean classic = (themeStyle.equals("Classic"));
-        listboxThemePreview.setVisible(!classic);
+        boolean classic = (previewStyle.equals("Classic"));
+        listboxPhonePreview.setVisible(!classic);
       }
     };
-    listboxThemePreview.addItem("Android Holo");
-    listboxThemePreview.addItem("Android Material");
-    listboxThemePreview.addItem("iOS");
-    listboxThemePreview.addChangeHandler(new ChangeHandler() {
+    listboxPhonePreview.addItem("Android Material");
+    listboxPhonePreview.addItem("Android Holo");
+    listboxPhonePreview.addItem("iOS");
+    listboxPhonePreview.addChangeHandler(new ChangeHandler() {
       @Override
       public void onChange(ChangeEvent event) {
-        int idx = listboxThemePreview.getSelectedIndex();
-        String chosenVal = drop_lst_preview_theme[idx];
+        int idx = listboxPhonePreview.getSelectedIndex();
+        String chosenVal = drop_lst_phone_preview[idx];
         // here, we can change settings by putting chosenStyle value into it
         projectEditor.changeProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME_PREVIEW, chosenVal);
-        changeFormThemePreview(idx, chosenVal);
+            SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW, chosenVal);
+        changeFormPhonePreview(idx, chosenVal);
       }
     });
 
-    phoneScreen.add(listboxThemePreview);
+    phoneScreen.add(listboxPhonePreview);
 
     initWidget(phoneScreen);
   }
@@ -213,25 +210,25 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
     // change settings
   }
 
-  private void changeFormThemePreview(int idx, String chosenVal) {
+  private void changeFormPhonePreview(int idx, String chosenVal) {
 
     if (form == null)
       return;
 
-    form.changeThemePreview(idx);
+    form.changePhonePreview(idx);
     String info = " (" + chosenVal + ")";
     if (idx == 0) {
-      listboxThemePreview.setItemText(idx, MESSAGES.previewAndroidHolo() + info);
-      listboxThemePreview.setItemText(1, MESSAGES.previewAndroidMaterial());
-      listboxThemePreview.setItemText(2, MESSAGES.previewIOS());
+      listboxPhonePreview.setItemText(idx, MESSAGES.previewAndroidMaterial() + info);
+      listboxPhonePreview.setItemText(1, MESSAGES.previewAndroidHolo());
+      listboxPhonePreview.setItemText(2, MESSAGES.previewIOS());
     } else if (idx == 1) {
-      listboxThemePreview.setItemText(idx, MESSAGES.previewAndroidMaterial() + info);
-      listboxThemePreview.setItemText(0, MESSAGES.previewAndroidHolo());
-      listboxThemePreview.setItemText(2, MESSAGES.previewIOS());
+      listboxPhonePreview.setItemText(idx, MESSAGES.previewAndroidHolo() + info);
+      listboxPhonePreview.setItemText(0, MESSAGES.previewAndroidMaterial());
+      listboxPhonePreview.setItemText(2, MESSAGES.previewIOS());
     } else {
-      listboxThemePreview.setItemText(idx, MESSAGES.previewIOS() + info);
-      listboxThemePreview.setItemText(0, MESSAGES.previewAndroidHolo());
-      listboxThemePreview.setItemText(1, MESSAGES.previewAndroidMaterial());
+      listboxPhonePreview.setItemText(idx, MESSAGES.previewIOS() + info);
+      listboxPhonePreview.setItemText(0, MESSAGES.previewAndroidMaterial());
+      listboxPhonePreview.setItemText(1, MESSAGES.previewAndroidHolo());
     }
     // change settings
   }
@@ -249,15 +246,15 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
     listboxPhoneTablet.setEnabled(enable);
   }
 
-  public void enableThemePreviewCheckBox(boolean enable){
+  public void enablePhonePreviewCheckBox(boolean enable){
     if (form != null){
       if (!enable){
-        listboxThemePreview.setVisible(enable);
+        listboxPhonePreview.setVisible(enable);
       } else {
-        listboxThemePreview.setVisible(enable);
+        listboxPhonePreview.setVisible(enable);
       }
     }
-    listboxThemePreview.setEnabled(enable);
+    listboxPhonePreview.setEnabled(enable);
   }
 
   /**

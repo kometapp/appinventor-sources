@@ -32,11 +32,19 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style;
 
-import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.Timer;
 
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.TreeItem;
+
 
 /**
  * Mock Form component. This implementation provides two main preview sizes corresponding to
@@ -233,9 +241,10 @@ public final class MockForm extends MockContainer {
   private int idxPhoneSize = 0;
 
   //Default values for theme style
-  private int idxThemeStyle = 0;
+  private int idxPhonePreviewStyle = 0;
   private boolean changePreviewFlag;
-  private String primaryDarkColor;
+  private String primaryDarkColor="&HFF41521C";
+  private boolean classic=true;
 
   // Property names
   private static final String PROPERTY_NAME_TITLE = "Title";
@@ -362,8 +371,8 @@ public final class MockForm extends MockContainer {
     }
   }
 
-  public void changeThemePreview(int idx) {
-    idxThemeStyle = idx;
+  public void changePhonePreview(int idx) {
+    idxPhonePreviewStyle = idx;
     changePreviewFlag=true;
     changePreview();
 
@@ -420,13 +429,18 @@ public final class MockForm extends MockContainer {
   private void changePreview() {
     // this condition prevents adding multiple phoneBars
     if (changePreviewFlag) responsivePanel.remove(phoneBar);
-    // making the preview changes
-    if (idxThemeStyle == 0) {
+
+    if (classic) {
       phoneBar = new PhoneBar();
-      formWidget.addStyleDependentName("AndroidHolo");
-    } else if (idxThemeStyle == 1) {
-      phoneBar = new PhoneBar(primaryDarkColor);
-      formWidget.addStyleDependentName("AndroidMaterial");
+    } else {
+      // making the preview changes
+      if (idxPhonePreviewStyle == 0) {
+        phoneBar = new PhoneBar(primaryDarkColor);
+        formWidget.addStyleDependentName("AndroidMaterial");
+      } else if (idxPhonePreviewStyle == 1) {
+        phoneBar = new PhoneBar();
+        formWidget.addStyleDependentName("AndroidHolo");
+      }
     }
 
     // updating changes to the MockForm
@@ -443,6 +457,7 @@ public final class MockForm extends MockContainer {
     }
     changePreviewFlag = false;
   }
+
 
   /*
    * Returns the width of a vertical scroll bar, calculating it if necessary.
@@ -1096,18 +1111,22 @@ public final class MockForm extends MockContainer {
       setActionBarProperty(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_THEME)) {
       if ("Classic".equals(newValue)) {
-        editor.getVisibleComponentsPanel().enableThemePreviewCheckBox(false);
+        editor.getVisibleComponentsPanel().enablePhonePreviewCheckBox(false);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("False");
+        classic=true;
       } else {
-        editor.getVisibleComponentsPanel().enableThemePreviewCheckBox(true);
+        editor.getVisibleComponentsPanel().enablePhonePreviewCheckBox(true);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("True");
+        classic=false;
       }
+      changePreviewFlag=true;
+      changePreview();
       setTheme(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_PRIMARY_COLOR)) {
       setPrimaryColor(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_PRIMARY_COLOR_DARK)) {
       setPrimaryColorDark(newValue);
-      if(idxThemeStyle==1) MockComponentsUtil.setWidgetBackgroundColor(phoneBar, newValue);
+      if(idxPhonePreviewStyle==0) MockComponentsUtil.setWidgetBackgroundColor(phoneBar, newValue);
     } else if (propertyName.equals(PROPERTY_NAME_ACCENT_COLOR)) {
       setAccentColor(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_HORIZONTAL_ALIGNMENT)) {
