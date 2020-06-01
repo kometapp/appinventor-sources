@@ -89,11 +89,14 @@ public class ShowBarcodeCommand extends ChainableCommand {
       };
       HorizontalPanel downloadPanel = new HorizontalPanel();
       downloadPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
-      Button downloadButton = new Button(/*MESSAGES.barcodeDownload()*/);
-      downloadButton.addStyleName("button-download");
+      Anchor downloadButton = new Anchor();
+      downloadButton.setHref(appInstallUrl);
+      downloadButton.addStyleName("gwt-Button");
+      downloadButton.addStyleName("download-button");
       // Image
       Image downloadIcon = new Image(Ode.getImageBundle().GetApp());
-      downloadIcon.setSize("50px", "50px");
+      downloadIcon.setSize("110px", "100px");
+      downloadIcon.addStyleName("download-icon");
       downloadButton.getElement().appendChild(downloadIcon.getElement());
       // Inner Text
       SpanElement text = Document.get().createSpanElement();
@@ -105,26 +108,8 @@ public class ShowBarcodeCommand extends ChainableCommand {
       left.add(downloadPanel);
 
       // Container > Left > Link
-      VerticalPanel linkPanel = new VerticalPanel();
-      linkPanel.getElement().getStyle().setTextAlign(Style.TextAlign.CENTER);
-      Anchor link = new Anchor(appInstallUrl);
-      link.setHref(appInstallUrl);
-      link.setTarget("_blank");
-      HTML linkQrcode = new HTML("<center><a href=\"" + appInstallUrl + "\" target=\"_blank\">" + appInstallUrl + "</a></center>");
-      left.add(linkQrcode);
-
-      // Container > Left > Warning
-      HorizontalPanel warningPanel = new HorizontalPanel();
-      warningPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-      HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
-              "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
-                      "\" target=\"_blank\">",
-              "</a>"));
-      warningLabel.setWordWrap(true);
-      warningLabel.setWidth("200px");  // set width to get the text to wrap
-      warningLabel.getElement().getStyle().setMarginTop(25, Style.Unit.PX);
-      warningPanel.add(warningLabel);
-      left.add(warningPanel);
+      // HTML linkQrcode = new HTML("<center><a href=\"" + appInstallUrl + "\" target=\"_blank\">" + appInstallUrl + "</a></center>");
+      // left.add(linkQrcode);
 
       // Container > Right
       VerticalPanel right = new VerticalPanel();
@@ -136,6 +121,19 @@ public class ShowBarcodeCommand extends ChainableCommand {
       container.add(left);
       container.add(right);
       contentPanel.add(container);
+
+      // Warning
+      HorizontalPanel warningPanel = new HorizontalPanel();
+      warningPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+      HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
+              "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
+                      "\" target=\"_blank\">",
+              "</a>"));
+      warningLabel.setWordWrap(true);
+      warningLabel.setWidth("400px");  // set width to get the text to wrap
+      warningLabel.getElement().getStyle().setMarginTop(10, Style.Unit.PX);
+      warningPanel.add(warningLabel);
+      contentPanel.add(warningPanel);
 
       // OK button
       ClickHandler buttonHandler = new ClickHandler() {
