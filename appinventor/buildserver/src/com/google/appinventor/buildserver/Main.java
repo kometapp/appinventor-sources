@@ -48,21 +48,25 @@ public final class Main {
     String dexCacheDir = null;
 
     @Option(name = "--includeDangerousPermissions",
-        usage = "Add extra features not allowed in the Google Play store.")
+            usage = "Add extra features not allowed in the Google Play store.")
     boolean includeDangerousPermissions = false;
 
     @Option(name = "--extensions",
-        usage = "Include the named extensions in the compilation.",
-        handler = StringArrayOptionHandler.class)
+            usage = "Include the named extensions in the compilation.",
+            handler = StringArrayOptionHandler.class)
     String[] extensions = null;
 
     @Option(name = "--outputFileName",
-        usage = "Use the specified file name for output rather than the App Name.")
+            usage = "Use the specified file name for output rather than the App Name.")
     String outputFileName = null;
 
     @Option(name = "--isForEmulator",
-        usage = "Exclude native libraries for emulator.")
+            usage = "Exclude native libraries for emulator.")
     boolean isForEmulator = false;
+
+    @Option(name = "--aab",
+            usage = "Builds an Android App Bundle instead of an APK file.")
+    boolean aab = false;
   }
 
   private static CommandLineOptions commandLineOptions = new CommandLineOptions();
@@ -76,7 +80,7 @@ public final class Main {
   /**
    * Main entry point.
    *
-   * @param args  command line arguments
+   * @param args command line arguments
    */
   public static void main(String[] args) {
 
@@ -98,15 +102,17 @@ public final class Main {
       System.exit(1);
     }
     Result result = projectBuilder.build(commandLineOptions.userName,
-                                         zip,
-                                         commandLineOptions.outputDir,
-                                         commandLineOptions.outputFileName,
-                                         commandLineOptions.isForCompanion,
-                                         commandLineOptions.isForEmulator,
-                                         commandLineOptions.includeDangerousPermissions,
-                                         commandLineOptions.extensions,
-                                         commandLineOptions.childProcessRamMb,
-                                         commandLineOptions.dexCacheDir, null);
+            zip,
+            commandLineOptions.outputDir,
+            commandLineOptions.outputFileName,
+            commandLineOptions.isForCompanion,
+            commandLineOptions.isForEmulator,
+            commandLineOptions.includeDangerousPermissions,
+            commandLineOptions.extensions,
+            commandLineOptions.childProcessRamMb,
+            commandLineOptions.dexCacheDir,
+            null,
+            commandLineOptions.aab);
     System.exit(result.getResult());
   }
 

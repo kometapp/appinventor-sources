@@ -1144,7 +1144,7 @@ public final class Compiler {
                                 boolean isForCompanion, boolean isForEmulator,
                                 boolean includeDangerousPermissions, String keystoreFilePath,
                                 int childProcessRam, String dexCacheDir, String outputFileName,
-                                BuildServer.ProgressReporter reporter) throws IOException, JSONException {
+                                BuildServer.ProgressReporter reporter, boolean isAab) throws IOException, JSONException {
     long start = System.currentTimeMillis();
 
     // Set initial progress to 0%
