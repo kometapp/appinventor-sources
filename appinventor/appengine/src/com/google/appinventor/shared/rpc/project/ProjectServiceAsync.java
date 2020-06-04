@@ -16,7 +16,6 @@ import java.util.List;
  * Interface for the service providing project information. All declarations
  * in this interface are mirrored in {@link ProjectService}. For further
  * information see {@link ProjectService}.
- *
  */
 public interface ProjectServiceAsync {
 
@@ -24,7 +23,7 @@ public interface ProjectServiceAsync {
    * @see ProjectService#newProject(String, String, NewProjectParameters)
    */
   void newProject(String projectType, String projectName, NewProjectParameters params,
-      AsyncCallback<UserProject> callback);
+                  AsyncCallback<UserProject> callback);
 
   /**
    * @see ProjectService#newProjectFromTemplate(String, String, NewProjectParameters, String)
@@ -61,7 +60,7 @@ public interface ProjectServiceAsync {
    */
   void deleteProject(long projectId, AsyncCallback<Void> callback);
 
-   /**
+  /**
    * @see ProjectService#setGalleryid
    */
   void setGalleryId(long projectId, long galleryId, AsyncCallback<java.lang.Void> callback);
@@ -124,7 +123,7 @@ public interface ProjectServiceAsync {
   /**
    * @see ProjectService#loadraw(long, String)
    */
-  void loadraw(long projectId, String fileId, AsyncCallback<byte []> callback);
+  void loadraw(long projectId, String fileId, AsyncCallback<byte[]> callback);
 
   /**
    * @see ProjectService#loadraw2(long, String)
@@ -156,12 +155,12 @@ public interface ProjectServiceAsync {
    */
 
   void screenshot(String sessionId, long projectId, String fileId, String content,
-    AsyncCallback<RpcResult> callback);
+                  AsyncCallback<RpcResult> callback);
 
   /**
    * @see ProjectService#build(long, String, String, boolean)
    */
-  void build(long projectId, String nonce, String target, boolean secondBuildserver, AsyncCallback<RpcResult> callback);
+  void build(long projectId, String nonce, String target, boolean secondBuildserver, boolean isAab, AsyncCallback<RpcResult> callback);
 
   /**
    * @see ProjectService#getBuildResult(long, String)

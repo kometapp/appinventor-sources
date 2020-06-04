@@ -673,7 +673,7 @@ public final class YoungAndroidProjectService extends CommonProjectService {
    */
   @Override
   public RpcResult build(User user, long projectId, String nonce, String target,
-    boolean secondBuildserver) {
+    boolean secondBuildserver, boolean isAab) {
     String userId = user.getUserId();
     String projectName = storageIo.getProjectName(userId, projectId);
     String outputFileDir = BUILD_FOLDER + '/' + target;
@@ -696,7 +696,8 @@ public final class YoungAndroidProjectService extends CommonProjectService {
           userId,
           projectId,
           secondBuildserver,
-          outputFileDir));
+          outputFileDir,
+          isAab));
       HttpURLConnection connection = (HttpURLConnection) buildServerUrl.openConnection();
       connection.setDoOutput(true);
       connection.setRequestMethod("POST");
@@ -815,7 +816,7 @@ public final class YoungAndroidProjectService extends CommonProjectService {
   // a little more complicated when we want to get the URL from an App Engine config file or
   // command line argument.
   private String getBuildServerUrlStr(String userName, String userId,
-    long projectId, boolean secondBuildserver, String fileName)
+    long projectId, boolean secondBuildserver, String fileName, boolean isAab)
       throws UnsupportedEncodingException, EncryptionException {
     return "http://" + (secondBuildserver ? buildServerHost2.get() : buildServerHost.get()) +
       "/buildserver/build-all-from-zip-async"
@@ -829,7 +830,8 @@ public final class YoungAndroidProjectService extends CommonProjectService {
         + ServerLayout.RECEIVE_BUILD_SERVLET + "/"
         + Security.encryptUserAndProjectId(userId, projectId)
         + "/" + fileName,
-        "UTF-8");
+        "UTF-8")
+      + (isAab ? "&aab=1" : "&aab=0");
   }
 
   private String getCurrentHost() {

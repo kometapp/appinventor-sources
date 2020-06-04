@@ -37,17 +37,19 @@ public class ShowBarcodeCommand extends ChainableCommand {
 
   // The build target
   private String target;
+  private boolean isAab;
 
   /**
    * Creates a new command for showing a barcode for the target of a project.
    *
    * @param target the build target
    */
-  public ShowBarcodeCommand(String target) {
+  public ShowBarcodeCommand(String target, boolean isAab) {
     // Since we don't know when the barcode dialog is finished, we can't
     // support a command after this one.
     super(null); // no next command
     this.target = target;
+    this.isAab = isAab;
   }
 
   @Override
@@ -61,15 +63,15 @@ public class ShowBarcodeCommand extends ChainableCommand {
     String barcodeUrl = GWT.getHostPageBaseURL()
             + "b/" + Ode.getInstance().getNonce();
     OdeLog.log("Barcode url is: " + barcodeUrl);
-    new BarcodeDialogBox(node.getName(), barcodeUrl).center();
+    new BarcodeDialogBox(node.getName(), barcodeUrl, isAab).center();
   }
 
   static class BarcodeDialogBox extends DialogBox {
 
-    BarcodeDialogBox(String projectName, final String appInstallUrl) {
+    BarcodeDialogBox(String projectName, final String appInstallUrl, boolean isAab) {
       super(false, true);
       setStylePrimaryName("ode-DialogBox");
-      setText(MESSAGES.downloadApkDialog(projectName));
+      setText(isAab ? MESSAGES.downloadAabDialog(projectName) : MESSAGES.downloadApkDialog(projectName));
 
       // Main layout panel
       VerticalPanel contentPanel = new VerticalPanel();
@@ -100,7 +102,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
       downloadButton.getElement().appendChild(downloadIcon.getElement());
       // Container > Left > Download Button > Inner Text
       SpanElement text = Document.get().createSpanElement();
-      text.setInnerHTML(MESSAGES.barcodeDownload());
+      text.setInnerHTML(isAab ? MESSAGES.barcodeDownloadAab() : MESSAGES.barcodeDownloadApk());
       downloadButton.getElement().appendChild(text);
       downloadButton.addClickHandler(downloadHandler);
       downloadPanel.add(downloadButton);
@@ -111,17 +113,24 @@ public class ShowBarcodeCommand extends ChainableCommand {
       // HTML linkQrcode = new HTML("<center><a href=\"" + appInstallUrl + "\" target=\"_blank\">" + appInstallUrl + "</a></center>");
       // left.add(linkQrcode);
 
-      // Container > Right
-      VerticalPanel right = new VerticalPanel();
+      container.add(left);
 
-      // Container > Right > Barcode
-      HTML barcodeQrcode = new HTML("<center>" + BlocklyPanel.getQRCode(appInstallUrl) + "</center>");
-      barcodeQrcode.addStyleName("download-barcode");
-      right.add(barcodeQrcode);
+      // The Android App Bundle should only be used to publish the app through Google Play Store. Thus,
+      // it does not make sense to provide a QR code which the user might think they can scan and directly
+      // install in the phone directly.
+      if (!isAab) {
+        // Container > Right
+        VerticalPanel right = new VerticalPanel();
+
+        // Container > Right > Barcode
+        HTML barcodeQrcode = new HTML("<center>" + BlocklyPanel.getQRCode(appInstallUrl) + "</center>");
+        barcodeQrcode.addStyleName("download-barcode");
+        right.add(barcodeQrcode);
+
+        container.add(right);
+      }
 
       // Container
-      container.add(left);
-      container.add(right);
       contentPanel.add(container);
 
       // Warning

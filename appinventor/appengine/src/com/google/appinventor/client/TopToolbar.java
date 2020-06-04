@@ -273,10 +273,11 @@ public class TopToolbar extends Composite {
   private void createBuildMenu() {
     List<DropDownItem> buildItems = Lists.newArrayList();
     buildItems.add(new DropDownItem(WIDGET_NAME_BUILD_ANDROID_APK, MESSAGES.showExportAndroidApk(),
-        new BarcodeAction(false)));
+        new BarcodeAction(false, false)));
     // buildItems.add(new DropDownItem(WIDGET_NAME_BUILD_DOWNLOAD, MESSAGES.downloadToComputerMenuItem(),
     //     new DownloadAction(false)));
-    buildItems.add(new DropDownItem(WIDGET_NAME_BUILD_ANDROID_AAB, MESSAGES.showExportAndroidAab(), null));
+    buildItems.add(new DropDownItem(WIDGET_NAME_BUILD_ANDROID_AAB, MESSAGES.showExportAndroidAab(),
+            new BarcodeAction(false, true)));
 
     // Second Buildserver Menu Items
     //
@@ -295,10 +296,11 @@ public class TopToolbar extends Composite {
     if (Ode.getInstance().hasSecondBuildserver()) {
       buildItems.add(null);
       buildItems.add(new DropDownItem(WIDGET_NAME_BUILD_ANDROID_APK2, MESSAGES.showExportAndroidApk2(),
-          new BarcodeAction(true)));
+          new BarcodeAction(true, false)));
       // buildItems.add(new DropDownItem(WIDGET_NAME_BUILD_DOWNLOAD2, MESSAGES.downloadToComputerMenuItem2(),
       //     new DownloadAction(true)));
-      buildItems.add(new DropDownItem(WIDGET_NAME_BUILD_ANDROID_AAB2, MESSAGES.showExportAndroidAab2(), null));
+      buildItems.add(new DropDownItem(WIDGET_NAME_BUILD_ANDROID_AAB2, MESSAGES.showExportAndroidAab2(),
+              new BarcodeAction(true, true)));
     }
 
     if (AppInventorFeatures.hasYailGenerationOption() && Ode.getInstance().getUser().getIsAdmin()) {
@@ -509,9 +511,11 @@ public class TopToolbar extends Composite {
   private class BarcodeAction implements Command {
 
     private boolean secondBuildserver = false;
+    private boolean isAab;
 
-    public BarcodeAction(boolean secondBuildserver) {
+    public BarcodeAction(boolean secondBuildserver, boolean isAab) {
       this.secondBuildserver = secondBuildserver;
+      this.isAab = isAab;
     }
 
     @Override
@@ -521,10 +525,10 @@ public class TopToolbar extends Composite {
         String target = YoungAndroidProjectNode.YOUNG_ANDROID_TARGET_ANDROID;
         ChainableCommand cmd = new SaveAllEditorsCommand(
             new GenerateYailCommand(
-                new BuildCommand(target, secondBuildserver,
+                new BuildCommand(target, secondBuildserver, isAab,
                   new ShowProgressBarCommand(target,
                     new WaitForBuildResultCommand(target,
-                      new ShowBarcodeCommand(target)), "BarcodeAction"))));
+                      new ShowBarcodeCommand(target, isAab)), "BarcodeAction"))));
         if (!Ode.getInstance().getWarnBuild(secondBuildserver)) {
           cmd = new WarningDialogCommand(target, secondBuildserver, cmd);
           Ode.getInstance().setWarnBuild(secondBuildserver, true);
@@ -539,12 +543,15 @@ public class TopToolbar extends Composite {
     }
   }
 
+  // This is no longer used, but it is left here as an example for the future if needed
   private class DownloadAction implements Command {
 
     private boolean secondBuildserver = false;
+    private boolean isAab;
 
-    DownloadAction(boolean secondBuildserver) {
+    DownloadAction(boolean secondBuildserver, boolean isAab) {
       this.secondBuildserver = secondBuildserver;
+      this.isAab = isAab;
     }
 
     @Override
@@ -554,7 +561,7 @@ public class TopToolbar extends Composite {
         String target = YoungAndroidProjectNode.YOUNG_ANDROID_TARGET_ANDROID;
         ChainableCommand cmd = new SaveAllEditorsCommand(
             new GenerateYailCommand(
-                new BuildCommand(target, secondBuildserver,
+                new BuildCommand(target, secondBuildserver, isAab,
                   new ShowProgressBarCommand(target,
                     new WaitForBuildResultCommand(target,
                       new DownloadProjectOutputCommand(target)), "DownloadAction"))));
