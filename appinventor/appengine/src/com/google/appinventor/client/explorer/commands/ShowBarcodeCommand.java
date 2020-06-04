@@ -116,6 +116,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
 
       // Container > Right > Barcode
       HTML barcodeQrcode = new HTML("<center>" + BlocklyPanel.getQRCode(appInstallUrl) + "</center>");
+      barcodeQrcode.addStyleName("download-barcode");
       right.add(barcodeQrcode);
 
       container.add(left);

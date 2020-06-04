@@ -2796,20 +2796,20 @@ div.dropdiv p {
   height: 130px;
 }
 
-.download-button:after {
-  content: "";
-  background-color: #888;
-  position: absolute;
-  width: 1px;
-  height: 160px;
-  top: 40px;
-  left: 50%;
-  display: block;
-}
-
 .download-icon {
   height: 110px;
   width: 110px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.download-barcode:before {
+    content: "";
+    background-color: #888;
+    position: absolute;
+    width: 1px;
+    height: 160px;
+    top: 40px;
+    left: 50%;
+    display: block;
 }
