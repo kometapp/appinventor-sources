@@ -80,7 +80,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
       // Container > Left
       VerticalPanel left = new VerticalPanel();
 
-      // Container > Left > Download button
+      // Container > Left > Download Button
       ClickHandler downloadHandler = new ClickHandler() {
         @Override
         public void onClick(ClickEvent event) {
@@ -93,12 +93,12 @@ public class ShowBarcodeCommand extends ChainableCommand {
       downloadButton.setHref(appInstallUrl);
       downloadButton.addStyleName("gwt-Button");
       downloadButton.addStyleName("download-button");
-      // Image
+      // Container > Left > Download Button > Image
       Image downloadIcon = new Image(Ode.getImageBundle().GetApp());
       downloadIcon.setSize("110px", "100px");
       downloadIcon.addStyleName("download-icon");
       downloadButton.getElement().appendChild(downloadIcon.getElement());
-      // Inner Text
+      // Container > Left > Download Button > Inner Text
       SpanElement text = Document.get().createSpanElement();
       text.setInnerHTML(MESSAGES.barcodeDownload());
       downloadButton.getElement().appendChild(text);
@@ -119,6 +119,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
       barcodeQrcode.addStyleName("download-barcode");
       right.add(barcodeQrcode);
 
+      // Container
       container.add(left);
       container.add(right);
       contentPanel.add(container);
