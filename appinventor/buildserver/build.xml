@@ -206,6 +206,35 @@
     </java>
   </target>
 
+  <!-- =====================================================================
+       PlayAppAab: builds ../build/buildserver/AppInventorCompanion.aab
+       ===================================================================== -->
+  <!-- TODO: Need to modify the CheckPlayApp and PlayApp.uptodate tasks to ensure the AAB is
+             checked and not the APK file. -->
+  <target name="PlayAppAab"
+          depends="CheckPlayApp"
+          unless="PlayApp.uptodate">
+    <java classname="com.google.appinventor.buildserver.Main" fork="true" failonerror="true">
+      <classpath>
+        <fileset dir="${run.lib.dir}" includes="*.jar" />
+      </classpath>
+      <sysproperty key="file.encoding" value="UTF-8" />
+      <jvmarg value="-Djava.awt.headless=true" />
+      <arg value="--childProcessRamMb" />
+      <arg value="2048" />
+      <arg value="--inputZipFile" />
+      <arg value="${local.build.dir}/aiplayapp.zip" />
+      <arg value="--userName" />
+      <arg value="App Inventor" />
+      <arg value="--isForCompanion" />
+      <arg value="--outputDir" />
+      <arg value="${public.build.dir}" />
+      <arg value="--dexCacheDir" />
+      <arg value="${public.build.dir}/dexCache" />
+      <arg value="--aab" />
+    </java>
+  </target>
+
   <target name="CheckPlayAppExtras">
     <uptodate property="PlayAppExtras.uptodate" targetfile="${public.build.dir}/MITAI2Companion-full.apk">
       <srcfiles file="${local.build.dir}/aiplayapp.zip"/>
