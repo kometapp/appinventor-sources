@@ -1332,6 +1332,8 @@ public final class Compiler {
       reporter.report(85);
     }
 
+    // TODO: AAB things happen here
+
     // Seal the apk with ApkBuilder
     out.println("________Invoking ApkBuilder");
     String fileName = outputFileName;
