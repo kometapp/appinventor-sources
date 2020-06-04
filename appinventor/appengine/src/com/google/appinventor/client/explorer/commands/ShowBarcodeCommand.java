@@ -134,17 +134,21 @@ public class ShowBarcodeCommand extends ChainableCommand {
       contentPanel.add(container);
 
       // Warning
-      HorizontalPanel warningPanel = new HorizontalPanel();
-      warningPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-      HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
-              "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
-                      "\" target=\"_blank\">",
-              "</a>"));
-      warningLabel.setWordWrap(true);
-      warningLabel.setWidth("400px");  // set width to get the text to wrap
-      warningLabel.getElement().getStyle().setMarginTop(10, Style.Unit.PX);
-      warningPanel.add(warningLabel);
-      contentPanel.add(warningPanel);
+      // The warning label is added only in APK files, as there is no QR code for the AAB. It is supposed that
+      // users download the bundle just when they get it.
+      if (!isAab) {
+        HorizontalPanel warningPanel = new HorizontalPanel();
+        warningPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+        HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
+                "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
+                        "\" target=\"_blank\">",
+                "</a>"));
+        warningLabel.setWordWrap(true);
+        warningLabel.setWidth("400px");  // set width to get the text to wrap
+        warningLabel.getElement().getStyle().setMarginTop(10, Style.Unit.PX);
+        warningPanel.add(warningLabel);
+        contentPanel.add(warningPanel);
+      }
 
       // OK button
       ClickHandler buttonHandler = new ClickHandler() {
