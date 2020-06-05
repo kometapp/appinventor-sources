@@ -5,3 +5,67 @@
  * Released under the Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
+.ode-SimpleMockFormIOSLandscape .ode-SimpleMockForm,
+.ode-SimpleMockFormIOSLandscapeTablet .ode-SimpleMockForm,
+.ode-SimpleMockFormIOSLandscapeMonitor .ode-SimpleMockForm {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.ode-SimpleMockFormIOSPortrait .ode-SimpleMockForm,
+.ode-SimpleMockFormIOSPortraitTablet .ode-SimpleMockForm,
+.ode-SimpleMockFormIOSPortraitMonitor .ode-SimpleMockForm {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+/* ==== start: skins for iOS */
+.ode-SimpleMockFormIOSLandscape {
+    background: url(../images/iOSLandscape.png);
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: 100% 100%;
+    padding: 11px 43px 7px 48px;
+}
+
+.ode-SimpleMockFormIOSPortrait {
+  background: url(../images/iOSPortrait.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100% 100%;
+  padding: 50px 11px 43px 7px;
+}
+
+.ode-SimpleMockFormIOSLandscapeTablet {
+  background: url(../images/iOSLandscapeTablet.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100% 100%;
+  padding: 15px 56px 12px 64px;
+}
+
+.ode-SimpleMockFormIOSPortraitTablet {
+  background: url(../images/iOSPortraitTablet.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100% 100%;
+  padding: 64px 13px 55px 13px;
+}
+
+.ode-SimpleMockFormIOSLandscapeMonitor {
+  background: url(../images/iOSLandscapeMonitor.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100% 100%;
+  padding: 44px 43px 39px 48px;
+}
+
+.ode-SimpleMockFormIOSPortraitMonitor {
+  background: url(../images/iOSPortraitMonitor.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100% 100%;
+  padding: 99px 36px 75px 34px;
+}
+/* ==== end: skins for iOS */

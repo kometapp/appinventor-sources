@@ -241,10 +241,11 @@ public final class MockForm extends MockContainer {
   private int idxPhoneSize = 0;
 
   //Default values for theme style
-  private int idxPhonePreviewStyle = 0;
   private boolean changePreviewFlag;
+  private int idxPhonePreviewStyle = 0;
   private String primaryDarkColor="&HFF41521C";
   private boolean classic=true;
+  private boolean iOS=false;
 
   // Property names
   private static final String PROPERTY_NAME_TITLE = "Title";
@@ -389,12 +390,26 @@ public final class MockForm extends MockContainer {
       else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscapeTablet");
       else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscapeMonitor");
       navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarLandscape");
-    }
-    else {
+    } else {
       if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortrait");
       else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitTablet");
       else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitMonitor");
       navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarPortrait");
+    }
+    if(idxPhonePreviewStyle==2 && !classic) {
+      setIOSPhoneStyle();
+    }
+  }
+
+  private void setIOSPhoneStyle() {
+    if (landscape) {
+      if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSLandscape");
+      else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSLandscapeTablet");
+      else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSLandscapeMonitor");
+    } else {
+      if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSPortrait");
+      else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSPortraitTablet");
+      else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSPortraitMonitor");
     }
   }
 
@@ -440,7 +455,10 @@ public final class MockForm extends MockContainer {
       } else if (idxPhonePreviewStyle == 1) {
         phoneBar = new PhoneBar();
         formWidget.addStyleDependentName("AndroidHolo");
+      } else if (idxPhonePreviewStyle == 2) {
+        phoneBar = new PhoneBar();
       }
+     setPhoneStyle();
     }
 
     // updating changes to the MockForm
@@ -1114,6 +1132,7 @@ public final class MockForm extends MockContainer {
         editor.getVisibleComponentsPanel().enablePhonePreviewCheckBox(false);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("False");
         classic=true;
+        setPhoneStyle();
       } else {
         editor.getVisibleComponentsPanel().enablePhonePreviewCheckBox(true);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("True");
