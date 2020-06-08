@@ -159,7 +159,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
       };
       HorizontalPanel buttonPanel = new HorizontalPanel();
       buttonPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
-      Button okButton = new Button(MESSAGES.okButton());
+      Button okButton = new Button(MESSAGES.dismissButton());
       okButton.addClickHandler(buttonHandler);
       buttonPanel.add(okButton);
       // The cancel button is removed from the panel since it has no meaning in this
