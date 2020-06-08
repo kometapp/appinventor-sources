@@ -71,7 +71,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
     BarcodeDialogBox(String projectName, final String appInstallUrl, boolean isAab) {
       super(false, true);
       setStylePrimaryName("ode-DialogBox");
-      setText(isAab ? MESSAGES.downloadAabDialog(projectName) : MESSAGES.downloadApkDialog(projectName));
+      setText(isAab ? MESSAGES.downloadAabDialogTitle(projectName) : MESSAGES.downloadApkDialogTitle(projectName));
 
       // Main layout panel
       VerticalPanel contentPanel = new VerticalPanel();
