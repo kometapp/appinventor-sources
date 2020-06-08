@@ -61,7 +61,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
   public void execute(final ProjectNode node) {
     // Display a barcode for an url pointing at our server's download servlet
     String barcodeUrl = GWT.getHostPageBaseURL()
-            + "b/" + Ode.getInstance().getNonce();
+        + "b/" + Ode.getInstance().getNonce();
     OdeLog.log("Barcode url is: " + barcodeUrl);
     new BarcodeDialogBox(node.getName(), barcodeUrl, isAab).center();
   }
@@ -140,9 +140,9 @@ public class ShowBarcodeCommand extends ChainableCommand {
         HorizontalPanel warningPanel = new HorizontalPanel();
         warningPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
         HTML warningLabel = new HTML(MESSAGES.barcodeWarning(
-                "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
-                        "\" target=\"_blank\">",
-                "</a>"));
+            "<a href=\"" + "http://appinventor.mit.edu/explore/ai2/share.html" +
+                "\" target=\"_blank\">",
+            "</a>"));
         warningLabel.setWordWrap(true);
         warningLabel.setWidth("400px");  // set width to get the text to wrap
         warningLabel.getElement().getStyle().setMarginTop(10, Style.Unit.PX);
