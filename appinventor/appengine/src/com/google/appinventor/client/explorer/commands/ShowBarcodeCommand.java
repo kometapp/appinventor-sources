@@ -109,10 +109,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
       downloadPanel.setSize("100%", "30px");
       left.add(downloadPanel);
 
-      // Container > Left > Link
-      // HTML linkQrcode = new HTML("<center><a href=\"" + appInstallUrl + "\" target=\"_blank\">" + appInstallUrl + "</a></center>");
-      // left.add(linkQrcode);
-
+      // Container > Left
       container.add(left);
 
       // The Android App Bundle should only be used to publish the app through Google Play Store. Thus,
@@ -127,6 +124,7 @@ public class ShowBarcodeCommand extends ChainableCommand {
         barcodeQrcode.addStyleName("download-barcode");
         right.add(barcodeQrcode);
 
+        // Container > Right
         container.add(right);
       }
 
@@ -162,16 +160,9 @@ public class ShowBarcodeCommand extends ChainableCommand {
       Button okButton = new Button(MESSAGES.dismissButton());
       okButton.addClickHandler(buttonHandler);
       buttonPanel.add(okButton);
-      // The cancel button is removed from the panel since it has no meaning in this
-      // context. But the logic is still here in case we want to restore it, and as
-      // an example of how to code this stuff in GWT.
-      // buttonPanel.add(cancelButton);
-      // Button cancelButton = new Button(MESSAGES.cancelButton());
-      // cancelButton.addClickHandler(buttonHandler);
       buttonPanel.setSize("100%", "24px");
       contentPanel.add(buttonPanel);
 
-//      contentPanel.setSize("320px", "100%");
       add(contentPanel);
     }
   }
