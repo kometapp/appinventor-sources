@@ -133,19 +133,12 @@ public final class MockForm extends MockContainer {
 
     // UI elements
     private DockPanel bar;
-    private Image phoneBarImage;
-    private HorizontalPanel panel;
-    private Image phoneBarBatteryImage;
-    private Image phoneBarSignalImage;
-    private Image phoneBarWifiImage;
-    private String primaryDarkStatusBar;
-    private Label time;
 
     /*
      * Creates a new phone status bar.
      */
     PhoneBar() {
-      phoneBarImage = new Image(images.phonebar());
+      Image phoneBarImage = new Image(images.phonebar());
 
       bar = new DockPanel();
       bar.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
@@ -158,18 +151,10 @@ public final class MockForm extends MockContainer {
     }
 
     PhoneBar(String color) {
-      phoneBarWifiImage = new Image(images.phonebarWifi());
-      phoneBarSignalImage = new Image(images.phonebarSignal());
-      phoneBarBatteryImage = new Image(images.phonebarBattery());
-      time= new Label("12:30");
-      time.setStyleName("AndroidMaterialTimeIcon");
+      Image phoneBarAndroidMaterial = new Image(images.phonebarAndroidMaterial());
+      HorizontalPanel panel = new HorizontalPanel();
 
-      panel=new HorizontalPanel();
-      panel.add(phoneBarWifiImage);
-      panel.add(phoneBarSignalImage);
-      panel.add(phoneBarBatteryImage);
-      panel.add(time);
-      panel.setStyleName("AndroidMaterialIconsPanel");
+      panel.add(phoneBarAndroidMaterial);
 
       bar = new DockPanel();
       bar.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
@@ -376,12 +361,6 @@ public final class MockForm extends MockContainer {
     idxPhonePreviewStyle = idx;
     changePreviewFlag=true;
     changePreview();
-
-//    if (landscape) {
-//      resizePanel(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT);
-//    } else {
-//      resizePanel(width, height);
-//    }
   }
 
   private void setPhoneStyle() {
@@ -471,7 +450,9 @@ public final class MockForm extends MockContainer {
       responsivePanel.add(scrollPanel);
 
       formWidget.add(responsivePanel);
-      formWidget.add(navigationBar);
+      if (idxPhonePreviewStyle != 2)  {
+        formWidget.add(navigationBar);
+      }
     }
     changePreviewFlag = false;
   }

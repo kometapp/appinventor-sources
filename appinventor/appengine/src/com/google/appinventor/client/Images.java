@@ -71,20 +71,8 @@ public interface Images extends Resources {
   /**
    * Phone status bar shown above the Android Material form in the visual designer
    */
-  @Source("com/google/appinventor/images/androidmaterialbatteryicon.png")
-  ImageResource phonebarBattery();
-
-  /**
-   * Phone status bar shown above the Android Material form in the visual designer
-   */
-  @Source("com/google/appinventor/images/androidmaterialsignalicon.png")
-  ImageResource phonebarSignal();
-
-  /**
-   * Phone status bar shown above the Android Material form in the visual designer
-   */
-  @Source("com/google/appinventor/images/androidmaterialwifiicon.png")
-  ImageResource phonebarWifi();
+  @Source("com/google/appinventor/images/phonebarAndroidMaterial.png")
+  ImageResource phonebarAndroidMaterial();
 
   /**
    * Spinning/wait graphic to indicate long-running operations.
