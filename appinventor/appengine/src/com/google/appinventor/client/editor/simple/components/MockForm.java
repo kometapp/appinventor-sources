@@ -152,13 +152,10 @@ public final class MockForm extends MockContainer {
 
     PhoneBar(String color) {
       Image phoneBarAndroidMaterial = new Image(images.phonebarAndroidMaterial());
-      HorizontalPanel panel = new HorizontalPanel();
-
-      panel.add(phoneBarAndroidMaterial);
 
       bar = new DockPanel();
       bar.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
-      bar.add(panel, DockPanel.EAST);
+      bar.add(phoneBarAndroidMaterial, DockPanel.EAST);
 
       initWidget(bar);
       MockComponentsUtil.setWidgetBackgroundColor(bar, color);

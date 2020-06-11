@@ -20,7 +20,7 @@
   flex-direction: column;
 }
 
-/* ==== start: skins for iOS */
+/* ==== start: skins for iOS : these are temporary mocks of iPhones and iPads */
 .ode-SimpleMockFormIOSLandscape {
     background: url(../images/iOSLandscape.png);
     background-repeat: no-repeat;

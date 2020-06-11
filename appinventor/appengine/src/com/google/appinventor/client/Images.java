@@ -69,7 +69,7 @@ public interface Images extends Resources {
   ImageResource phonebar();
 
   /**
-   * Phone status bar shown above the Android Material form in the visual designer
+   * Phone status bar for the Android Material form in the visual designer
    */
   @Source("com/google/appinventor/images/phonebarAndroidMaterial.png")
   ImageResource phonebarAndroidMaterial();
