@@ -360,6 +360,10 @@ public final class MockForm extends MockContainer {
     changePreview();
   }
 
+  public int getPhonePreview() {
+    return idxPhonePreviewStyle;
+  }
+
   private void setPhoneStyle() {
     if (landscape) {
       if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscape");
@@ -423,13 +427,17 @@ public final class MockForm extends MockContainer {
 
     if (classic) {
       phoneBar = new PhoneBar();
+      formWidget.removeStyleDependentName("AndroidMaterial");
+      formWidget.removeStyleDependentName("AndroidHolo");
     } else {
       // making the preview changes
       if (idxPhonePreviewStyle == 0) {
         phoneBar = new PhoneBar(primaryDarkColor);
+        formWidget.removeStyleDependentName("AndroidHolo");
         formWidget.addStyleDependentName("AndroidMaterial");
       } else if (idxPhonePreviewStyle == 1) {
         phoneBar = new PhoneBar();
+        formWidget.removeStyleDependentName("AndroidMaterial");
         formWidget.addStyleDependentName("AndroidHolo");
       } else if (idxPhonePreviewStyle == 2) {
         phoneBar = new PhoneBar();
