@@ -1147,6 +1147,9 @@ public final class Compiler {
                                 BuildServer.ProgressReporter reporter) throws IOException, JSONException {
     long start = System.currentTimeMillis();
 
+    // Set initial progress to 0%
+    reporter.report(0);
+
     // Create a new compiler instance for the compilation
     Compiler compiler = new Compiler(project, compTypes, compBlocks, out, err, userErrors,
         isForCompanion, isForEmulator, includeDangerousPermissions, childProcessRam, dexCacheDir,
