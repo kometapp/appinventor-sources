@@ -181,7 +181,7 @@ public final class ProjectBuilder {
           // Locate output file
           String fileName = outputFileName;
           if (fileName == null) {
-            fileName = project.getProjectName() + (isAab ? ".apk" : ".apk");
+            fileName = project.getProjectName() + (isAab ? ".aab" : ".apk");
           }
           File outputFile = new File(projectRoot,
               "build/deploy/" + fileName);
