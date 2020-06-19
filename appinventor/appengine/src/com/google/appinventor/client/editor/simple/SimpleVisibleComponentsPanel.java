@@ -6,6 +6,7 @@
 
 package com.google.appinventor.client.editor.simple;
 
+import com.google.appinventor.client.output.OdeLog;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import static com.google.appinventor.client.Ode.MESSAGES;
@@ -137,6 +138,11 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
                 SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME);
         boolean classic = (previewStyle.equals("Classic"));
         listboxPhonePreview.setVisible(!classic);
+//        if (classic) {
+//          changeFormPreviewSize(0, 320, 505);
+//        } else {
+//          getUserSettingChangePreview();
+//        }
       }
     };
     listboxPhonePreview.addItem("Android Material");

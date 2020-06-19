@@ -9,7 +9,11 @@
 .ode-SimpleMockFormPhoneBarAndroidHolo {
   background-color: #000000;
 }
-
+/*Holo Button*/
+.ode-SimpleMockForm-AndroidHolo .ode-SimpleMockButton {
+  background-color: transparent;
+  color: #fff;
+}
 
 
 
