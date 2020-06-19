@@ -360,6 +360,10 @@ public final class MockForm extends MockContainer {
     changePreview();
   }
 
+  public int getPhonePreview() {
+    return idxPhonePreviewStyle;
+  }
+
   private void setPhoneStyle() {
     if (landscape) {
       if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhoneLandscape");
