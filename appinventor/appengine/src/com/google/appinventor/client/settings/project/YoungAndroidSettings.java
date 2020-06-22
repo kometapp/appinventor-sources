@@ -67,7 +67,7 @@ public final class YoungAndroidSettings extends Settings {
         SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME, "AppTheme.Light.DarkActionBar",
         EditableProperty.TYPE_INVISIBLE));
     addProperty(new EditableProperty(this,
-        SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW, "False",
+        SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW, "Android Material",
         EditableProperty.TYPE_INVISIBLE));
     addProperty(new EditableProperty(this,
         SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR, "&HFFA5CF47",

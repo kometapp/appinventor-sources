@@ -224,10 +224,9 @@ public final class MockForm extends MockContainer {
 
   //Default values for theme style
   private boolean changePreviewFlag;
-  private int idxPhonePreviewStyle = 0;
+  private int idxPhonePreviewStyle = -1;
+  private String phonePreviewStyle="Android Material";
   private String primaryDarkColor="&HFF41521C";
-  private boolean classic=true;
-  private boolean iOS=false;
 
   // Property names
   private static final String PROPERTY_NAME_TITLE = "Title";
@@ -354,14 +353,11 @@ public final class MockForm extends MockContainer {
     }
   }
 
-  public void changePhonePreview(int idx) {
+  public void changePhonePreview(int idx ) {
     idxPhonePreviewStyle = idx;
     changePreviewFlag=true;
     changePreview();
-  }
-
-  public int getPhonePreview() {
-    return idxPhonePreviewStyle;
+    setPhoneStyle();
   }
 
   private void setPhoneStyle() {
@@ -376,7 +372,7 @@ public final class MockForm extends MockContainer {
       else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortraitMonitor");
       navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarPortrait");
     }
-    if(idxPhonePreviewStyle==2 && !classic) {
+    if(idxPhonePreviewStyle==2 ) {
       setIOSPhoneStyle();
     }
   }
@@ -425,24 +421,23 @@ public final class MockForm extends MockContainer {
     // this condition prevents adding multiple phoneBars
     if (changePreviewFlag) responsivePanel.remove(phoneBar);
 
-    if (classic) {
+    if (idxPhonePreviewStyle == -1) {
       phoneBar = new PhoneBar();
       formWidget.removeStyleDependentName("AndroidMaterial");
       formWidget.removeStyleDependentName("AndroidHolo");
-    } else {
-      // making the preview changes
-      if (idxPhonePreviewStyle == 0) {
-        phoneBar = new PhoneBar(primaryDarkColor);
-        formWidget.removeStyleDependentName("AndroidHolo");
-        formWidget.addStyleDependentName("AndroidMaterial");
-      } else if (idxPhonePreviewStyle == 1) {
-        phoneBar = new PhoneBar();
-        formWidget.removeStyleDependentName("AndroidMaterial");
-        formWidget.addStyleDependentName("AndroidHolo");
-      } else if (idxPhonePreviewStyle == 2) {
-        phoneBar = new PhoneBar();
-      }
-     setPhoneStyle();
+    } else if (idxPhonePreviewStyle == 0) {
+      phonePreviewStyle="Android Material";
+      phoneBar = new PhoneBar(primaryDarkColor);
+      formWidget.removeStyleDependentName("AndroidHolo");
+      formWidget.addStyleDependentName("AndroidMaterial");
+    } else if (idxPhonePreviewStyle == 1) {
+      phonePreviewStyle="Android Holo";
+      phoneBar = new PhoneBar();
+      formWidget.removeStyleDependentName("AndroidMaterial");
+      formWidget.addStyleDependentName("AndroidHolo");
+    } else if (idxPhonePreviewStyle == 2) {
+      phonePreviewStyle="iOS";
+      phoneBar = new PhoneBar();
     }
 
     // updating changes to the MockForm
@@ -1115,17 +1110,14 @@ public final class MockForm extends MockContainer {
       setActionBarProperty(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_THEME)) {
       if ("Classic".equals(newValue)) {
+        editor.getVisibleComponentsPanel().setPreviewProperty("Classic");
         editor.getVisibleComponentsPanel().enablePhonePreviewCheckBox(false);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("False");
-        classic=true;
-        setPhoneStyle();
       } else {
+        editor.getVisibleComponentsPanel().setPreviewProperty(phonePreviewStyle);
         editor.getVisibleComponentsPanel().enablePhonePreviewCheckBox(true);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("True");
-        classic=false;
       }
-      changePreviewFlag=true;
-      changePreview();
       setTheme(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_PRIMARY_COLOR)) {
       setPrimaryColor(newValue);
