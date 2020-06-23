@@ -138,7 +138,6 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
         boolean classic = (previewStyle.equals("Classic"));
         listboxPhonePreview.setVisible(!classic);
         if (classic) {
-          setPreviewProperty("Classic");
           changeFormPhonePreview(-1, "Classic");
         } else {
           getUserSettingChangePreview();
@@ -199,12 +198,16 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
         SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
     int idx = 0;
 
+    if (val.equals("Classic")) {
+      val="Android Material";
+    }
+
     if (val.equals("Android Holo")) {
       idx = 1;
     } else if (val.equals("iOS")) {
-      idx= 2;
+      idx = 2;
     }
-    listboxPhoneTablet.setItemSelected(idx, true);
+    listboxPhonePreview.setItemSelected(idx, true);
     changeFormPhonePreview(idx, val);
   }
 
@@ -278,12 +281,6 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
       }
     }
     listboxPhonePreview.setEnabled(enable);
-  }
-
-  // setting project data value for YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW
-  public void setPreviewProperty(String newValue) {
-    projectEditor.changeProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-        SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW, newValue);
   }
 
   /**

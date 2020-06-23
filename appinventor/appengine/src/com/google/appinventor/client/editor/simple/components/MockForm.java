@@ -225,7 +225,6 @@ public final class MockForm extends MockContainer {
   //Default values for theme style
   private boolean changePreviewFlag;
   private int idxPhonePreviewStyle = -1;
-  private String phonePreviewStyle="Android Material";
   private String primaryDarkColor="&HFF41521C";
 
   // Property names
@@ -426,17 +425,14 @@ public final class MockForm extends MockContainer {
       formWidget.removeStyleDependentName("AndroidMaterial");
       formWidget.removeStyleDependentName("AndroidHolo");
     } else if (idxPhonePreviewStyle == 0) {
-      phonePreviewStyle="Android Material";
       phoneBar = new PhoneBar(primaryDarkColor);
       formWidget.removeStyleDependentName("AndroidHolo");
       formWidget.addStyleDependentName("AndroidMaterial");
     } else if (idxPhonePreviewStyle == 1) {
-      phonePreviewStyle="Android Holo";
       phoneBar = new PhoneBar();
       formWidget.removeStyleDependentName("AndroidMaterial");
       formWidget.addStyleDependentName("AndroidHolo");
     } else if (idxPhonePreviewStyle == 2) {
-      phonePreviewStyle="iOS";
       phoneBar = new PhoneBar();
     }
 
@@ -1110,11 +1106,9 @@ public final class MockForm extends MockContainer {
       setActionBarProperty(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_THEME)) {
       if ("Classic".equals(newValue)) {
-        editor.getVisibleComponentsPanel().setPreviewProperty("Classic");
         editor.getVisibleComponentsPanel().enablePhonePreviewCheckBox(false);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("False");
       } else {
-        editor.getVisibleComponentsPanel().setPreviewProperty(phonePreviewStyle);
         editor.getVisibleComponentsPanel().enablePhonePreviewCheckBox(true);
         getProperties().getExistingProperty(PROPERTY_NAME_ACTIONBAR).setValue("True");
       }
