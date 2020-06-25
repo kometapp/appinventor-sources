@@ -413,7 +413,7 @@ public class BuildServer {
       return Response.status(Response.Status.FORBIDDEN).type(MediaType.TEXT_PLAIN_TYPE)
         .entity("Entry point unavailable unless debugging.").build();
 
-    boolean isAab = aab != null && aab.equals(AAB_TRUE_VALUE);
+    boolean isAab = AAB_TRUE_VALUE.equals(aab);
 
     try {
       build(userName, zipFile, isAab, null);
@@ -458,7 +458,7 @@ public class BuildServer {
       return Response.status(Response.Status.FORBIDDEN).type(MediaType.TEXT_PLAIN_TYPE)
         .entity("Entry point unavailable unless debugging.").build();
 
-    boolean isAab = aab != null && aab.equals(AAB_TRUE_VALUE);
+    boolean isAab = AAB_TRUE_VALUE.equals(aab);
 
     try {
       buildAndCreateZip(userName, inputZipFile, isAab, null);
@@ -516,7 +516,7 @@ public class BuildServer {
     inputZip.deleteOnExit(); // In case build server is killed before cleanUp executes.
     String requesting_host = (new URL(callbackUrlStr)).getHost();
 
-    final boolean isAab = aab != null && aab.equals(AAB_TRUE_VALUE);
+    final boolean isAab = AAB_TRUE_VALUE.equals(aab);
 
     //for the request for update part, the file should be empty
     if (inputZip.length() == 0L) {
