@@ -23,7 +23,7 @@ public interface ProjectServiceAsync {
    * @see ProjectService#newProject(String, String, NewProjectParameters)
    */
   void newProject(String projectType, String projectName, NewProjectParameters params,
-                  AsyncCallback<UserProject> callback);
+      AsyncCallback<UserProject> callback);
 
   /**
    * @see ProjectService#newProjectFromTemplate(String, String, NewProjectParameters, String)
