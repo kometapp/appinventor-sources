@@ -155,7 +155,7 @@ public interface ProjectServiceAsync {
    */
 
   void screenshot(String sessionId, long projectId, String fileId, String content,
-                  AsyncCallback<RpcResult> callback);
+    AsyncCallback<RpcResult> callback);
 
   /**
    * @see ProjectService#build(long, String, String, boolean)
