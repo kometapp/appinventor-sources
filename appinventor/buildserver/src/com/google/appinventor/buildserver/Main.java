@@ -23,6 +23,9 @@ import java.util.zip.ZipFile;
  */
 public final class Main {
 
+  public final static String APK_EXTENSION_VALUE = "apk";
+  public final static String AAB_EXTENSION_VALUE = "aab";
+
   static class CommandLineOptions {
     @Option(name = "--isForCompanion", usage = "create the MIT AI2 Companion APK")
     boolean isForCompanion = false;
@@ -64,9 +67,9 @@ public final class Main {
         usage = "Exclude native libraries for emulator.")
     boolean isForEmulator = false;
 
-    @Option(name = "--aab",
-        usage = "Builds an Android App Bundle instead of an APK file.")
-    boolean aab = false;
+    @Option(name = "--ext",
+        usage = "Specifies the build type to use.")
+    String ext = "apk";
   }
 
   private static CommandLineOptions commandLineOptions = new CommandLineOptions();
@@ -112,7 +115,7 @@ public final class Main {
                                          commandLineOptions.childProcessRamMb,
                                          commandLineOptions.dexCacheDir,
                                          null,
-                                         commandLineOptions.aab);
+                                         AAB_EXTENSION_VALUE.equals(commandLineOptions.ext));
     System.exit(result.getResult());
   }
 

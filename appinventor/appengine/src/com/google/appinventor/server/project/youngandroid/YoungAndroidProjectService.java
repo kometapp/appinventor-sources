@@ -830,7 +830,7 @@ public final class YoungAndroidProjectService extends CommonProjectService {
             ServerLayout.RECEIVE_BUILD_SERVLET + "/" +
             Security.encryptUserAndProjectId(userId, projectId) + "/" +
             fileName)
-        .add("aab", isAab ? "1" : "0");
+        .add("ext", isAab ? "aab" : "apk");
     return uriBuilder.build();
   }
 
