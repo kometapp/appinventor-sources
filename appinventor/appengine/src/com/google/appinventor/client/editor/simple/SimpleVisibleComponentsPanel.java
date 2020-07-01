@@ -239,7 +239,7 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
     if (form == null)
       return;
 
-    form.changePhonePreview(idx);
+    form.changePhonePreview(idx, chosenVal);
     String info = " (" + chosenVal + ")";
     if (idx == 0) {
       listboxPhonePreview.setItemText(idx, MESSAGES.previewAndroidMaterial() + info);

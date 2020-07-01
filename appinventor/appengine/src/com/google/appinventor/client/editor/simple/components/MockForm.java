@@ -352,8 +352,13 @@ public final class MockForm extends MockContainer {
     }
   }
 
-  public void changePhonePreview(int idx ) {
-    idxPhonePreviewStyle = idx;
+  public void changePhonePreview(int idx, String previewName ) {
+    // storing the new preview style in the user settings
+    editor.getProjectEditor().changeProjectSettingsProperty(
+      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+      SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW, previewName);
+
+    idxPhonePreviewStyle=idx;
     changePreviewFlag=true;
     changePreview();
     setPhoneStyle();

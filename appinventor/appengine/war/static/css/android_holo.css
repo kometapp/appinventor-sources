@@ -12,9 +12,17 @@
 
 /*Holo Button*/
 .ode-SimpleMockForm-AndroidHolo .ode-SimpleMockButton {
-  background-color: transparent;
-  color: #fff;
+  min-height: 34px;
+  padding: 4px 8px;
+  border-bottom: 2px #b9b9b9 solid;
+  background-color: #d6d7d7;
+  color: rgba(0, 0, 0, 0.87);
 }
 
+/*Holo Selected Component*/
+.ode-SimpleMockForm-AndroidHolo .ode-SimpleMockComponent-selected {
+  height: auto !important;
+  border: 2px solid #8fc202;
+}
 
 
