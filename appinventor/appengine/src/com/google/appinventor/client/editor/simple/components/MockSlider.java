@@ -8,6 +8,7 @@ package com.google.appinventor.client.editor.simple.components;
 
 import com.google.appinventor.client.editor.simple.SimpleEditor;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.smartgwt.client.widgets.Slider;
 
 /**
  * Mock Slider component.
@@ -25,6 +26,8 @@ public final class MockSlider extends MockVisibleComponent {
 
   // Widget for showing the mock slider
   private final SimplePanel sliderWidget;
+  //Slider slider;
+
 
   /**
    * Creates a new MockSlider component.
@@ -37,6 +40,7 @@ public final class MockSlider extends MockVisibleComponent {
     // Initialize mock slider UI
     sliderWidget = new SimplePanel();
     sliderWidget.setStylePrimaryName("ode-SimpleMockComponent");
+    //slider= new Slider();
 
     sliderWidget.setWidget(getIconImage());
 

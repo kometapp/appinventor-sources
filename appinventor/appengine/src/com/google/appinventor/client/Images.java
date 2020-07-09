@@ -75,6 +75,24 @@ public interface Images extends Resources {
   ImageResource phonebarAndroidMaterial();
 
   /**
+   * Phone status bar containing time icon for the iOS form in the visual designer
+   */
+  @Source("com/google/appinventor/images/iPhoneLeft.png")
+  ImageResource phonebariOSLeftPanel();
+
+  /**
+   * Phone status bar containing signal, wifi and battery icon for the iOS form in the visual designer
+   */
+  @Source("com/google/appinventor/images/iPhoneRight.png")
+  ImageResource phonebariOSRightPanel();
+
+  /**
+   * Phone status bar containing time icon for the iOS form in the visual designer
+   */
+  @Source("com/google/appinventor/images/iPhoneTime.png")
+  ImageResource phonebariOSTimeIcon();
+
+  /**
    * Spinning/wait graphic to indicate long-running operations.
    */
   @Source("com/google/appinventor/images/spin_16.gif")

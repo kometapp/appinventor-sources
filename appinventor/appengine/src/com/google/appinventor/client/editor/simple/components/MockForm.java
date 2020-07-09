@@ -133,6 +133,7 @@ public final class MockForm extends MockContainer {
 
     // UI elements
     private DockPanel bar;
+    private HorizontalPanel iOSBar;
 
     /*
      * Creates a new phone status bar.
@@ -161,6 +162,25 @@ public final class MockForm extends MockContainer {
       MockComponentsUtil.setWidgetBackgroundColor(bar, color);
 
       setStylePrimaryName("ode-SimpleMockFormPhoneBarAndroidMaterial");
+      setSize("100%", HEIGHT + "px");
+    }
+
+    PhoneBar(boolean landscape) {
+      Image phoneBariOSLeft = new Image(images.phonebariOSLeftPanel());
+      Image phoneBariOSRight = new Image(images.phonebariOSRightPanel());
+      Image phoneBariOSCenter = new Image(images.phonebariOSTimeIcon());
+
+      phoneBariOSLeft.setStylePrimaryName("ode-SimpleMockFormiOSLeftPanel");
+      phoneBariOSCenter.setStylePrimaryName("ode-SimpleMockFormiOSCenterPanel");
+      phoneBariOSRight.setStylePrimaryName("ode-SimpleMockFormiOSRightPanel");
+
+      iOSBar=new HorizontalPanel();
+      iOSBar.add(phoneBariOSLeft);
+      iOSBar.add(phoneBariOSCenter);
+      iOSBar.add(phoneBariOSRight);
+
+      initWidget(iOSBar);
+      setStylePrimaryName("ode-SimpleMockFormPhoneBariOS");
       setSize("100%", HEIGHT + "px");
     }
   }
@@ -438,7 +458,13 @@ public final class MockForm extends MockContainer {
       formWidget.removeStyleDependentName("AndroidMaterial");
       formWidget.addStyleDependentName("AndroidHolo");
     } else if (idxPhonePreviewStyle == 2) {
-      phoneBar = new PhoneBar();
+        if(landscape) {
+          phoneBar = new PhoneBar(true);
+
+        } else {
+          phoneBar = new PhoneBar(false);
+
+        }
     }
 
     // updating changes to the MockForm

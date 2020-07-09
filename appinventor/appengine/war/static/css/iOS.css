@@ -22,7 +22,7 @@
 
 /* ==== start: skins for iOS : these are temporary mocks of iPhones and iPads */
 .ode-SimpleMockFormIOSLandscape {
-    background: url(../images/iOSLandscape.png);
+    background: url(../images/iphoneSevenLandscape.png);
     background-repeat: no-repeat;
     background-position: right top;
     background-size: 100% 100%;
@@ -30,11 +30,11 @@
 }
 
 .ode-SimpleMockFormIOSPortrait {
-  background: url(../images/iphoneOne.png);
+  background: url(../images/iphoneSeven.png);
   background-repeat: no-repeat;
   background-position: right top;
   background-size: 100% 100%;
-  padding: 50px 11px 43px 7px;
+  padding: 80px 22px 97px 22px;
 }
 
 .ode-SimpleMockFormIOSLandscapeTablet {
@@ -50,7 +50,7 @@
   background-repeat: no-repeat;
   background-position: right top;
   background-size: 100% 100%;
-  padding: 64px 13px 55px 13px;
+  padding: 64px 13px 75px 13px;
 }
 
 .ode-SimpleMockFormIOSLandscapeMonitor {
@@ -66,6 +66,34 @@
   background-repeat: no-repeat;
   background-position: right top;
   background-size: 100% 100%;
-  padding: 99px 36px 75px 34px;
+  padding: 99px 36px 100px 34px;
 }
-/* ==== end: skins for iOS */
+
+
+/* iOS PhoneBar */
+.ode-SimpleMockFormPhoneBariOS {
+  display: flex;
+  display-direction: row;
+  position: relative;
+}
+
+.ode-SimpleMockFormiOSLeftPanel {
+  left: 0;
+  position: absolute;
+  padding:2px 0px 0px 2px;
+}
+
+.ode-SimpleMockFormiOSRightPanel{
+  right: 0;
+  position: absolute;
+  padding:2px 2px 0px 0px;
+}
+
+.ode-SimpleMockFormiOSCenterPanel{
+  position: absolute;
+  padding: 2px 70px 0px 70px;
+}
+
+.ode-SimpleMockFormPhoneBariOS .ode-SimpleMockFormiOSRightPanel {
+  display: inline-block;
+}
