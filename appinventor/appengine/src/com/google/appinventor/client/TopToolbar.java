@@ -68,6 +68,7 @@ import static com.google.appinventor.client.Ode.MESSAGES;
 public class TopToolbar extends Composite {
   private static final String WIDGET_NAME_NEW = "New";
   private static final String WIDGET_NAME_DELETE = "Delete";
+  private static final String WIDGET_NAME_DELETE_TRASH = "Delete Trash";
   private static final String WIDGET_NAME_DOWNLOAD_KEYSTORE = "DownloadKeystore";
   private static final String WIDGET_NAME_UPLOAD_KEYSTORE = "UploadKeystore";
   private static final String WIDGET_NAME_DELETE_KEYSTORE = "DeleteKeystore";
@@ -183,12 +184,24 @@ public class TopToolbar extends Composite {
 
     initWidget(toolbar);
   }
+  
+  public void updateMoveToTrash(String menu_item){
+    if(menu_item.equals("Move To Trash")){
+      fileDropDown.setItemVisible(MESSAGES.trashProjectMenuItem(), true);
+      fileDropDown.setItemVisible(MESSAGES.deleteFromTrashButton(), false);  
+    }
+    else{
+      fileDropDown.setItemVisible(MESSAGES.trashProjectMenuItem(), false);
+      fileDropDown.setItemVisible(MESSAGES.deleteFromTrashButton(), true);
+    }
+  } 
 
   public void updateMenuState(int numSelectedProjects, int numProjects) {
     boolean allowDelete = !isReadOnly && numSelectedProjects > 0;
     boolean allowExport = numSelectedProjects > 0;
     boolean allowExportAll = numProjects > 0;
     fileDropDown.setItemEnabled(MESSAGES.trashProjectMenuItem(), allowDelete);
+    fileDropDown.setItemEnabled(MESSAGES.deleteFromTrashButton(), allowDelete);
     String exportProjectLabel = numSelectedProjects > 1 ?
         MESSAGES.exportSelectedProjectsMenuItem(numSelectedProjects) : MESSAGES.exportProjectMenuItem();
     fileDropDown.setItemHtmlById(WIDGET_NAME_EXPORTPROJECT, exportProjectLabel);
@@ -207,6 +220,7 @@ public class TopToolbar extends Composite {
     for (DropDownItem i : items) {
       menu.addItem(i);
     }
+    fileDropDown.setItemVisible(MESSAGES.deleteFromTrashButton(), false);
   }
 
   private void createProjectsMenu() {
@@ -223,6 +237,8 @@ public class TopToolbar extends Composite {
           new ImportTemplateAction()));
       fileItems.add(new DropDownItem(WIDGET_NAME_DELETE, MESSAGES.deleteProjectButton(),
           new DeleteAction()));
+      fileItems.add(new DropDownItem(WIDGET_NAME_DELETE_TRASH, MESSAGES.deleteFromTrashButton(),
+          new DeleteForeverProjectAction()));     
       fileItems.add(null);
       fileItems.add(new DropDownItem(WIDGET_NAME_SAVE, MESSAGES.saveMenuItem(),
           new SaveAction()));
@@ -449,6 +465,7 @@ public class TopToolbar extends Composite {
   private static class SwitchToProjectAction implements Command {
     @Override
     public void execute() {
+      Ode.getInstance().getTopToolbar().updateMoveToTrash("Move To Trash");
       Ode.getInstance().switchToProjectsView();
       Ode.getInstance().getTopToolbar().updateFileMenuButtons(0);
     }
@@ -1092,6 +1109,7 @@ public class TopToolbar extends Composite {
     }
     if (view == 0) {  // We are in the Projects view
       fileDropDown.setItemEnabled(MESSAGES.deleteProjectButton(), false);
+      fileDropDown.setItemEnabled(MESSAGES.deleteFromTrashButton(), false);
       fileDropDown.setItemEnabled(MESSAGES.trashProjectMenuItem(),
           ProjectListBox.getProjectListBox().getProjectList().getMyProjectsCount() == 0);
       fileDropDown.setItemEnabled(MESSAGES.exportAllProjectsMenuItem(),
@@ -1108,7 +1126,7 @@ public class TopToolbar extends Composite {
       }
     } else { // We have to be in the Designer/Blocks view
       fileDropDown.setItemEnabled(MESSAGES.deleteProjectButton(), true);
-      fileDropDown.setItemEnabled(MESSAGES.trashProjectMenuItem(), false);
+      fileDropDown.setItemEnabled(MESSAGES.trashProjectMenuItem(), true);
       fileDropDown.setItemEnabled(MESSAGES.exportAllProjectsMenuItem(),
       ProjectListBox.getProjectListBox().getProjectList().getMyProjectsCount() > 0);
       fileDropDown.setItemEnabledById(WIDGET_NAME_EXPORTPROJECT, true);
@@ -1207,6 +1225,57 @@ public class TopToolbar extends Composite {
     @Override
     public void execute() {
       Ode.getInstance().switchToUserAdminPanel();
+    }
+  }
+  
+  private static class DeleteForeverProjectAction implements Command {
+    @Override
+    public void execute() {
+      Ode.getInstance().getEditorManager().saveDirtyEditors(new Command() {
+        @Override
+        public void execute() {
+          List<Project> deletedProjects = ProjectListBox.getProjectListBox().getProjectList().getSelectedProjects();
+          if (deletedProjects.size() > 0) {
+            // Show one confirmation window for selected projects.
+            if (deleteConfirmation(deletedProjects)) {
+              for (Project project : deletedProjects) {
+                project.deleteFromTrash();
+              }
+            }
+            Ode.getInstance().switchToTrash();
+          } else {
+            // The user can select a project to resolve the
+            // error.
+            ErrorReporter.reportInfo(MESSAGES.noProjectSelectedForDelete());
+          }
+        }
+      });
+    }
+
+    private boolean deleteConfirmation(List<Project> projects) {
+      String message;
+      GallerySettings gallerySettings = GalleryClient.getInstance().getGallerySettings();
+      if (projects.size() == 1) {
+        if (projects.get(0).isPublished()) {
+          message = MESSAGES.confirmDeleteSinglePublishedProject(projects.get(0).getProjectName());
+        } else {
+          message = MESSAGES.confirmDeleteSingleProject(projects.get(0).getProjectName());
+        }
+      } else {
+        StringBuilder sb = new StringBuilder();
+        String separator = "";
+        for (Project project : projects) {
+          sb.append(separator).append(project.getProjectName());
+          separator = ", ";
+        }
+        String projectNames = sb.toString();
+        if(!gallerySettings.galleryEnabled()){
+          message = MESSAGES.confirmDeleteManyProjects(projectNames);
+        } else {
+          message = MESSAGES.confirmDeleteForeverManyProjectsWithGalleryOn(projectNames);
+        }
+      }
+      return Window.confirm(message);
     }
   }
 
