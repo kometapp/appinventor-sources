@@ -136,10 +136,10 @@ public final class Compiler {
 
   private static final Set<String> CRITICAL_JARS =
       new HashSet<>(Arrays.asList(
-          RUNTIME_FILES_DIR + "appcompat-v7.jar",
-          RUNTIME_FILES_DIR + "common.jar",
-          RUNTIME_FILES_DIR + "lifecycle-common.jar",
-          RUNTIME_FILES_DIR + "support-compat.jar"
+          RUNTIME_FILES_DIR + "appcompat.jar",
+          RUNTIME_FILES_DIR + "core.jar",
+          RUNTIME_FILES_DIR + "core-common.jar",
+          RUNTIME_FILES_DIR + "lifecycle-common.jar"
       ));
 
   private static final String LINUX_AAPT_TOOL =
@@ -163,6 +163,10 @@ public final class Compiler {
   private final ConcurrentMap<String, Set<String>> assetsNeeded =
       new ConcurrentHashMap<String, Set<String>>();
   private final ConcurrentMap<String, Set<String>> activitiesNeeded =
+      new ConcurrentHashMap<String, Set<String>>();
+  private final ConcurrentMap<String, Set<String>> metadataNeeded =
+      new ConcurrentHashMap<String, Set<String>>();
+  private final ConcurrentMap<String, Set<String>> activityMetadataNeeded =
       new ConcurrentHashMap<String, Set<String>>();
   private final ConcurrentMap<String, Set<String>> broadcastReceiversNeeded =
       new ConcurrentHashMap<String, Set<String>>();
@@ -523,6 +527,56 @@ public final class Compiler {
     }
 
     System.out.println("Component activities needed, n = " + n);
+  }
+
+  /**
+   * Generate a set of conditionally included metadata needed by this project.
+   */
+  @VisibleForTesting
+  void generateMetadata() {
+    try {
+      loadJsonInfo(metadataNeeded, ComponentDescriptorConstants.METADATA_TARGET);
+    } catch (IOException e) {
+      // This is fatal.
+      e.printStackTrace();
+      userErrors.print(String.format(ERROR_IN_STAGE, "Metadata"));
+    } catch (JSONException e) {
+      // This is fatal, but shouldn't actually ever happen.
+      e.printStackTrace();
+      userErrors.print(String.format(ERROR_IN_STAGE, "Metadata"));
+    }
+
+    int n = 0;
+    for (String type : metadataNeeded.keySet()) {
+      n += metadataNeeded.get(type).size();
+    }
+
+    System.out.println("Component metadata needed, n = " + n);
+  }
+
+  /**
+   * Generate a set of conditionally included activity metadata needed by this project.
+   */
+  @VisibleForTesting
+  void generateActivityMetadata() {
+    try {
+      loadJsonInfo(activityMetadataNeeded, ComponentDescriptorConstants.ACTIVITY_METADATA_TARGET);
+    } catch (IOException e) {
+      // This is fatal.
+      e.printStackTrace();
+      userErrors.print(String.format(ERROR_IN_STAGE, "Activity Metadata"));
+    } catch (JSONException e) {
+      // This is fatal, but shouldn't actually ever happen.
+      e.printStackTrace();
+      userErrors.print(String.format(ERROR_IN_STAGE, "Activity Metadata"));
+    }
+
+    int n = 0;
+    for (String type : activityMetadataNeeded.keySet()) {
+      n += activityMetadataNeeded.get(type).size();
+    }
+
+    System.out.println("Component metadata needed, n = " + n);
   }
 
   /*
@@ -959,6 +1013,10 @@ public final class Compiler {
         out.write("android:label=\"" + aName + "\" ");
       }
       out.write("android:networkSecurityConfig=\"@xml/network_security_config\" ");
+      out.write("android:requestLegacyExternalStorage=\"true\" ");  // For SDK 29 (Android Q)
+      if (YaVersion.TARGET_SDK_VERSION >= 30) {
+        out.write("android:preserveLegacyExternalStorage=\"true\" ");  // For SDK 30 (Android R)
+      }
       out.write("android:icon=\"@mipmap/ic_launcher\" ");
       out.write("android:roundIcon=\"@mipmap/ic_launcher\" ");
       if (isForCompanion) {              // This is to hook into ACRA
@@ -1034,6 +1092,20 @@ public final class Compiler {
           out.write("        <data android:mimeType=\"text/plain\" />\n");
           out.write("      </intent-filter>\n");
         }
+
+        Set<Map.Entry<String, Set<String>>> metadataElements = activityMetadataNeeded.entrySet();
+
+        // If any component needs to register additional activity metadata,
+        // insert them into the manifest here.
+        if (!metadataElements.isEmpty()) {
+          for (Map.Entry<String, Set<String>> metadataElementSetPair : metadataElements) {
+            Set<String> metadataElementSet = metadataElementSetPair.getValue();
+            for (String metadataElement : metadataElementSet) {
+              out.write(metadataElement);
+            }
+          }
+        }
+
         out.write("    </activity>\n");
 
         // Companion display a splash screen... define it's activity here
@@ -1049,6 +1121,7 @@ public final class Compiler {
       // Collect any additional <application> subelements into a single set.
       Set<Map.Entry<String, Set<String>>> subelements = Sets.newHashSet();
       subelements.addAll(activitiesNeeded.entrySet());
+      subelements.addAll(metadataNeeded.entrySet());
       subelements.addAll(broadcastReceiversNeeded.entrySet());
 
 
@@ -1083,7 +1156,9 @@ public final class Compiler {
       // actions are optional (and as many as needed).
       for (String broadcastReceiver : simpleBroadcastReceivers) {
         String[] brNameAndActions = broadcastReceiver.split(",");
-        if (brNameAndActions.length == 0) continue;
+        if (brNameAndActions.length == 0) {
+          continue;
+        }
         // Remove the SMS_RECEIVED broadcast receiver if we aren't including dangerous permissions
         if (isForCompanion && !includeDangerousPermissions) {
           boolean skip = false;
@@ -1093,11 +1168,13 @@ public final class Compiler {
               break;
             }
           }
-          if (skip) continue;
+          if (skip) {
+            continue;
+          }
         }
         out.write(
             "<receiver android:name=\"" + brNameAndActions[0] + "\" >\n");
-        if (brNameAndActions.length > 1){
+        if (brNameAndActions.length > 1) {
           out.write("  <intent-filter>\n");
           for (int i = 1; i < brNameAndActions.length; i++) {
             out.write("    <action android:name=\"" + brNameAndActions[i] + "\" />\n");
@@ -1111,7 +1188,7 @@ public final class Compiler {
       // URLs in intents (and in other contexts)
 
       out.write("      <provider\n");
-      out.write("         android:name=\"android.support.v4.content.FileProvider\"\n");
+      out.write("         android:name=\"androidx.core.content.FileProvider\"\n");
       out.write("         android:authorities=\"" + packageName + ".provider\"\n");
       out.write("         android:exported=\"false\"\n");
       out.write("         android:grantUriPermissions=\"true\">\n");
@@ -1162,6 +1239,8 @@ public final class Compiler {
 
     compiler.generateAssets();
     compiler.generateActivities();
+    compiler.generateMetadata();
+    compiler.generateActivityMetadata();
     compiler.generateBroadcastReceivers();
     compiler.generateLibNames();
     compiler.generateNativeLibNames();
