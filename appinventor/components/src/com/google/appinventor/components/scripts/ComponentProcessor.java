@@ -10,43 +10,29 @@ import com.google.appinventor.components.annotations.DesignerComponent;
 import com.google.appinventor.components.annotations.DesignerProperty;
 import com.google.appinventor.components.annotations.IsColor;
 import com.google.appinventor.components.annotations.PropertyCategory;
+import com.google.appinventor.components.annotations.SimpleBroadcastReceiver;
 import com.google.appinventor.components.annotations.SimpleEvent;
 import com.google.appinventor.components.annotations.SimpleFunction;
 import com.google.appinventor.components.annotations.SimpleObject;
 import com.google.appinventor.components.annotations.SimpleProperty;
-import com.google.appinventor.components.annotations.SimpleBroadcastReceiver;
+import com.google.appinventor.components.annotations.UsesActivities;
 import com.google.appinventor.components.annotations.UsesAssets;
+import com.google.appinventor.components.annotations.UsesBroadcastReceivers;
 import com.google.appinventor.components.annotations.UsesLibraries;
 import com.google.appinventor.components.annotations.UsesNativeLibraries;
 import com.google.appinventor.components.annotations.UsesPermissions;
-import com.google.appinventor.components.annotations.UsesActivities;
-import com.google.appinventor.components.annotations.UsesBroadcastReceivers;
+import com.google.appinventor.components.annotations.androidmanifest.ActionElement;
 import com.google.appinventor.components.annotations.androidmanifest.ActivityElement;
-import com.google.appinventor.components.annotations.androidmanifest.ReceiverElement;
+import com.google.appinventor.components.annotations.androidmanifest.CategoryElement;
+import com.google.appinventor.components.annotations.androidmanifest.DataElement;
 import com.google.appinventor.components.annotations.androidmanifest.IntentFilterElement;
 import com.google.appinventor.components.annotations.androidmanifest.MetaDataElement;
-import com.google.appinventor.components.annotations.androidmanifest.ActionElement;
-import com.google.appinventor.components.annotations.androidmanifest.DataElement;
-import com.google.appinventor.components.annotations.androidmanifest.CategoryElement;
+import com.google.appinventor.components.annotations.androidmanifest.ReceiverElement;
 import com.google.appinventor.components.common.PropertyTypeConstants;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
-import java.io.IOException;
-import java.io.Writer;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Messager;
@@ -69,17 +55,26 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor7;
 import javax.lang.model.util.Types;
-
-import java.lang.annotation.Annotation;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.tools.Diagnostic;
 import javax.tools.Diagnostic.Kind;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Processor for generating output files based on the annotations and
@@ -734,10 +729,13 @@ public abstract class ComponentProcessor extends AbstractProcessor {
     private int version;
     private boolean showOnPalette;
     private boolean nonVisible;
+    private boolean isContainer;
     private String iconName;
     private int androidMinSdk;
     private String versionName;
     private String dateBuilt;
+
+    private boolean hasCustomMock;
 
     protected ComponentInfo(Element element) {
       super(element.getSimpleName().toString(),  // Short name
@@ -763,6 +761,16 @@ public abstract class ComponentProcessor extends AbstractProcessor {
       external = false;
       versionName = null;
       dateBuilt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date());
+
+      isContainer = typeUtils.isAssignable(
+              element.asType(),
+              elementUtils
+                      .getTypeElement("com.google.appinventor.components.runtime.ComponentContainer")
+                      .asType()
+      );
+
+      hasCustomMock = false;
+
       for (AnnotationMirror am : element.getAnnotationMirrors()) {
         DeclaredType dt = am.getAnnotationType();
         String annotationName = am.getAnnotationType().toString();
@@ -824,6 +832,8 @@ public abstract class ComponentProcessor extends AbstractProcessor {
           androidMinSdk = designerComponentAnnotation.androidMinSdk();
           versionName = designerComponentAnnotation.versionName();
           userVisible = designerComponentAnnotation.showOnPalette();
+
+          hasCustomMock = designerComponentAnnotation.hasCustomMock();
         }
       }
     }
@@ -902,6 +912,14 @@ public abstract class ComponentProcessor extends AbstractProcessor {
      */
     protected boolean getNonVisible() {
       return nonVisible;
+    }
+
+    protected boolean getIsContainer() {
+      return isContainer;
+    }
+
+    protected boolean getHasCustomMock() {
+      return hasCustomMock;
     }
 
     /**
