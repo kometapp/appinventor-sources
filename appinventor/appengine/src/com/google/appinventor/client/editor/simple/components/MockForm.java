@@ -448,16 +448,22 @@ public final class MockForm extends MockContainer {
     if (idxPhonePreviewStyle == -1) {
       phoneBar = new PhoneBar();
       formWidget.removeStyleDependentName("AndroidMaterial");
+      formWidget.removeStyleDependentName("iOS");
       formWidget.removeStyleDependentName("AndroidHolo");
     } else if (idxPhonePreviewStyle == 0) {
       phoneBar = new PhoneBar(primaryDarkColor);
       formWidget.removeStyleDependentName("AndroidHolo");
+      formWidget.removeStyleDependentName("iOS");
       formWidget.addStyleDependentName("AndroidMaterial");
     } else if (idxPhonePreviewStyle == 1) {
       phoneBar = new PhoneBar();
       formWidget.removeStyleDependentName("AndroidMaterial");
+      formWidget.removeStyleDependentName("iOS");
       formWidget.addStyleDependentName("AndroidHolo");
     } else if (idxPhonePreviewStyle == 2) {
+      formWidget.removeStyleDependentName("AndroidMaterial");
+      formWidget.removeStyleDependentName("AndroidHolo");
+      formWidget.addStyleDependentName("iOS");
         if(landscape) {
           phoneBar = new PhoneBar(true);
 

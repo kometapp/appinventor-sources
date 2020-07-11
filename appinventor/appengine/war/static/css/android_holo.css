@@ -21,7 +21,6 @@
 
 /*Holo Selected Component*/
 .ode-SimpleMockForm-AndroidHolo .ode-SimpleMockComponent-selected {
-  height: auto !important;
   border: 2px solid #8fc202;
 }
 

@@ -30,7 +30,7 @@
 }
 
 .ode-SimpleMockFormIOSPortrait {
-  background: url(../images/iphoneSeven.png);
+  background: url(../images/iPhoneXPotrait.png);
   background-repeat: no-repeat;
   background-position: right top;
   background-size: 100% 100%;
@@ -72,9 +72,8 @@
 
 /* iOS PhoneBar */
 .ode-SimpleMockFormPhoneBariOS {
-  display: flex;
-  display-direction: row;
   position: relative;
+  background-color: #636361;
 }
 
 .ode-SimpleMockFormiOSLeftPanel {
@@ -91,9 +90,14 @@
 
 .ode-SimpleMockFormiOSCenterPanel{
   position: absolute;
-  padding: 2px 70px 0px 70px;
+  padding: 2px 40px 0px 40px;
 }
 
 .ode-SimpleMockFormPhoneBariOS .ode-SimpleMockFormiOSRightPanel {
   display: inline-block;
+}
+
+/*iOS Selected Component*/
+.ode-SimpleMockForm-iOS .ode-SimpleMockComponent-selected {
+  border: 2px solid #8fc202;
 }

@@ -153,6 +153,7 @@
     <copy toFile="${public.deps.dir}/core.jar" file="${lib.dir}/QRGenerator/core.jar" />
     <copy toFile="${public.deps.dir}/physicaloid.jar" file="${lib.dir}/physicaloid/physicaloid-library.jar" />
     <copy toFile="${public.deps.dir}/smartgwt-2.5.jar" file="${lib.dir}/smart_gwt/smartgwt-2.5.jar" />
+    <copy toFile="${public.deps.dir}gwt-material-2.3.0.jar/" file="${lib.dir}/gwt_material/gwt-material-2.3.0.jar" /> 
     <!-- BEGIN Android Support Libraries -->
     <copy todir="${public.deps.dir}/">
       <fileset dir="${support.dir}/" includes="*.aar,*.jar" excludes="testing-support-R-classes.jar" />

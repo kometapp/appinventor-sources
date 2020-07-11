@@ -9,6 +9,7 @@ package com.google.appinventor.client.editor.simple.components;
 import com.google.appinventor.client.editor.simple.SimpleEditor;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.smartgwt.client.widgets.Slider;
+import gwt.material.design.client.ui.MaterialSlider;
 
 /**
  * Mock Slider component.
@@ -26,7 +27,8 @@ public final class MockSlider extends MockVisibleComponent {
 
   // Widget for showing the mock slider
   private final SimplePanel sliderWidget;
-  //Slider slider;
+ // Slider slider;
+  MaterialSlider materialSlider= new MaterialSlider();
 
 
   /**

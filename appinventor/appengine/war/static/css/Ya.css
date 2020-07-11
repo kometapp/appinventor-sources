@@ -1160,7 +1160,7 @@ select.ode-PropertyEditor[disabled] {
 }
 
 .ode-SimpleMockComponent-selected {
-  border: 2px solid #8fc202;
+  border: 2px solid #fe8e01;
 }
 
 .ode-SimpleMockMapFeature-selected svg * {
@@ -1222,10 +1222,9 @@ path.ode-SimpleMockMapFeature-selected {
 
 .ode-SimpleMockButton {
   padding: 4px 8px;
-  text-shadow: none;
-  border: 0;
-  border-radius: 2px;
   background-color: #d6d7d7;
+  border-radius: 0px;
+  border-bottom: 2px #b9b9b9 solid;
   color: rgba(0, 0, 0, 0.87);
 }
 
