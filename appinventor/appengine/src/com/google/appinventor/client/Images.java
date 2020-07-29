@@ -63,7 +63,7 @@ public interface Images extends Resources {
   ImageResource close();
 
   /**
-   * Phone status bar shown above the form in the visual designer
+   * Phone status bar for Android Holo shown above the form in the visual designer
    */
   @Source("com/google/appinventor/images/phonebar.png")
   ImageResource phonebar();
@@ -75,22 +75,64 @@ public interface Images extends Resources {
   ImageResource phonebarAndroidMaterial();
 
   /**
-   * Phone status bar containing time icon for the iOS form in the visual designer
+   * Phone status bar for iPhone containing white left side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPhoneLeft.png")
-  ImageResource phonebariOSLeftPanel();
+  @Source("com/google/appinventor/images/iPhoneXLeftWhiteFB.png")
+  ImageResource phonebariPhoneLeftWhite();
 
   /**
-   * Phone status bar containing signal, wifi and battery icon for the iOS form in the visual designer
+   * Phone status bar for iPhone containing white right side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPhoneRight.png")
-  ImageResource phonebariOSRightPanel();
+  @Source("com/google/appinventor/images/iPhoneXRightWhiteFB.png")
+  ImageResource phonebariPhoneRightWhite();
 
   /**
-   * Phone status bar containing time icon for the iOS form in the visual designer
+   * Phone status bar for iPhone containing black left side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPhoneTime.png")
-  ImageResource phonebariOSTimeIcon();
+  @Source("com/google/appinventor/images/iPhoneXLeft.png")
+  ImageResource phonebariPhoneLeftBlack();
+
+  /**
+   * Phone status bar for iPhone containing black right side icons in the visual designer
+   */
+  @Source("com/google/appinventor/images/iPhoneXRight.png")
+  ImageResource phonebariPhoneRightBlack();
+
+  /**
+   * Phone status bar for iPad containing black left side icons in the visual designer
+   */
+  @Source("com/google/appinventor/images/iPadLeftBlack.png")
+  ImageResource phonebariPadLeftBlack();
+
+  /**
+   * Phone status bar for iPad containing black right side icons in the visual designer
+   */
+  @Source("com/google/appinventor/images/iPadRightBlackFB.png")
+  ImageResource phonebariPadRightBlack();
+
+  /**
+   * Phone status bar for iPad containing white left side icons in the visual designer
+   */
+  @Source("com/google/appinventor/images/iPadLeftWhite.png")
+  ImageResource phonebariPadLeftWhite();
+
+  /**
+   * Phone status bar for iPad containing white right side icons in the visual designer
+   */
+  @Source("com/google/appinventor/images/iPadRightWhite.png")
+  ImageResource phonebariPadRightWhite();
+
+  /**
+   * Phone status bar containing white book icon for the iOS form in the visual designer
+   */
+  @Source("com/google/appinventor/images/iOSBookmarkWhite.png")
+  ImageResource bookIconWhite();
+
+  /**
+   * Phone status bar containing black book icon for the iOS form in the visual designer
+   */
+  @Source("com/google/appinventor/images/iOSBookmarkBlack.png")
+  ImageResource bookIconBlack();
 
   /**
    * Spinning/wait graphic to indicate long-running operations.
