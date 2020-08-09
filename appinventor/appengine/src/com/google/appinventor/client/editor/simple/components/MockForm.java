@@ -67,7 +67,8 @@ public final class MockForm extends MockContainer {
     private Label title;
     private Button menuButton;
     private AbsolutePanel bar;
-    private Image bookIcon;
+    private Image bookIconWhite;
+    private Image bookIconBlack;
     private boolean actionBar;
     private boolean navBar;
     private String backgroundColor;
@@ -86,6 +87,11 @@ public final class MockForm extends MockContainer {
       menuButton = new Button();
       menuButton.setText("\u22ee");
       menuButton.setStylePrimaryName("ode-SimpleMockFormMenuButton");
+
+      bookIconWhite = new Image(images.bookIconWhite());
+      bookIconWhite.setStylePrimaryName("ode-SimpleMockFormIconIOSWhite");
+      bookIconBlack = new Image(images.bookIconBlack());
+      bookIconBlack.setStylePrimaryName("ode-SimpleMockFormIconIOSBlack");
 
       bar = new AbsolutePanel();
       bar.add(title);
@@ -125,13 +131,8 @@ public final class MockForm extends MockContainer {
     }
 
     void changeBookmarkIcon(boolean black) {
-      if(black) {
-        bookIcon = new Image(images.bookIconBlack());
-      } else {
-        bookIcon = new Image(images.bookIconWhite());
-      }
-      bookIcon.setStylePrimaryName("ode-SimpleMockFormIconIOS");
-      bar.add(bookIcon);
+      bar.remove(black ? bookIconWhite : bookIconBlack);
+      bar.add(black ? bookIconBlack : bookIconWhite);
     }
 
     void setBackgroundColor(String color) {
@@ -513,7 +514,7 @@ public final class MockForm extends MockContainer {
    * Changes the preview of MockForm based on Android Holo, Android Material and iOS styles
    */
   private void changePreview() {
-    // this condition prevents adding multiple phoneBars
+    // this condition prevents adding multiple phoneBars and titlebars
     if (changePreviewFlag) {
       responsivePanel.remove(phoneBar);
       responsivePanel.remove(titleBar);

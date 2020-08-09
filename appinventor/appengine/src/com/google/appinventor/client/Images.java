@@ -101,7 +101,7 @@ public interface Images extends Resources {
   /**
    * Phone status bar for iPad containing black left side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPadLeftBlack.png")
+  @Source("com/google/appinventor/images/iPadBlackFB.png")
   ImageResource phonebariPadLeftBlack();
 
   /**
@@ -113,7 +113,7 @@ public interface Images extends Resources {
   /**
    * Phone status bar for iPad containing white left side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPadLeftWhite.png")
+  @Source("com/google/appinventor/images/iPadLeftWhiteFB.png")
   ImageResource phonebariPadLeftWhite();
 
   /**

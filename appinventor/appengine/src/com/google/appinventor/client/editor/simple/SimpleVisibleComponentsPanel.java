@@ -144,9 +144,9 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
         }
       }
     };
-    listboxPhonePreview.addItem("Android Material");
-    listboxPhonePreview.addItem("Android Holo");
-    listboxPhonePreview.addItem("iOS");
+    listboxPhonePreview.addItem("Android 5+ Devices");
+    listboxPhonePreview.addItem("Android 3.0-4.4.2 Devices");
+    listboxPhonePreview.addItem("iOS 13 Devices");
     listboxPhonePreview.addChangeHandler(new ChangeHandler() {
       @Override
       public void onChange(ChangeEvent event) {

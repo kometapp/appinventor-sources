@@ -7,7 +7,11 @@
 package com.google.appinventor.client.editor.simple.components;
 
 import com.google.appinventor.client.editor.simple.SimpleEditor;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.appinventor.client.editor.simple.components.utils.SVGPanel;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 /**
  * Mock Slider component.
@@ -24,7 +28,11 @@ public final class MockSlider extends MockVisibleComponent {
   private static final int DEFAULT_WIDTH = 70;
 
   // Widget for showing the mock slider
-  private final SimplePanel sliderWidget;
+  protected final HorizontalPanel panel;
+  public String trackColorActive = "lime";
+  public String trackColorInactive = "lightgray";
+
+  public SVGPanel sliderGraphic;
 
   /**
    * Creates a new MockSlider component.
@@ -35,13 +43,58 @@ public final class MockSlider extends MockVisibleComponent {
     super(editor, TYPE, images.slider());
 
     // Initialize mock slider UI
-    sliderWidget = new SimplePanel();
-    sliderWidget.setStylePrimaryName("ode-SimpleMockComponent");
-
-    sliderWidget.setWidget(getIconImage());
-
-    initComponent(sliderWidget);
+    panel = new HorizontalPanel();
+    initComponent(panel);
+    paintSlider();
   }
+
+  /**
+   * Draw the SVG graphic of the slider. It displays the left and
+   * right sides of the slider, each with their own colors.
+   *
+   */
+  private void paintSlider() {
+    sliderGraphic = new SVGPanel();
+    int sliderHeight = 28;  // pixels (Android asset is 28 px at 160 dpi)
+
+    int sliderWidth = 500;
+    sliderGraphic.setWidth(sliderWidth + "px");
+    sliderGraphic.setHeight(sliderHeight + "px");
+
+    sliderGraphic.setInnerSVG("<g id=\"Group_1\" data-name=\"Group 1\" transform=\"translate(-466 -210)\">\n" +
+            "    <rect id=\"TrackLeft\" width=\"40\" height=\"6\" transform=\"translate(466 213)\" fill=\"" + trackColorActive + "\"/>\n" +
+            "    <rect id=\"TrackRight\" width=\"40\" height=\"4\" transform=\"translate(506 213)\" fill=\"" + trackColorInactive +"\"/>\n" +
+            "    <circle id=\"Thumb\" cx=\"10\" cy=\"10\" r=\"10\" transform=\"translate(503 210)\" fill=\"#80cdc6\"/>\n" +
+            "  </g>");
+    panel.add(sliderGraphic);
+    panel.setCellWidth(sliderGraphic, sliderWidth + "px");
+    panel.setCellHorizontalAlignment(sliderGraphic, HasHorizontalAlignment.ALIGN_RIGHT);
+    panel.setCellVerticalAlignment(sliderGraphic, HasVerticalAlignment.ALIGN_MIDDLE);
+    refreshForm();
+  }
+
+  /**
+   * Set track color for slider on the left side of the thumb
+   * Thumb is the button that slides back and forth on the slider
+   *
+   */
+  private void setTrackColorActiveProperty(String text) {
+    trackColorActive = MockComponentsUtil.getColor(text).toString();
+    DOM.setStyleAttribute(sliderGraphic.getWidget(1).getElement().getFirstChildElement().getNextSiblingElement(),
+              "fill", trackColorActive);
+  }
+
+  /**
+   * Set track color for slider on the right side of the thumb
+   * Thumb is the button that slides back and forth on the slider
+   *
+   */
+  private void setTrackColorInactiveProperty(String text) {
+    trackColorInactive = MockComponentsUtil.getColor(text).toString();
+    DOM.setStyleAttribute(sliderGraphic.getWidget(1).getElement().getFirstChildElement().getNextSiblingElement(),
+              "fill", trackColorInactive);
+   }
+
 
 
   @Override
@@ -64,6 +117,15 @@ public final class MockSlider extends MockVisibleComponent {
   @Override
   public void onPropertyChange(String propertyName, String newValue) {
     super.onPropertyChange(propertyName, newValue);
+
+    // Apply changed properties to the mock component
+    if (propertyName.equals(PROPERTY_NAME_COLORLEFT)) {
+      setTrackColorActiveProperty(newValue);
+      refreshForm();
+    } else if (propertyName.equals(PROPERTY_NAME_COLORRIGHT)) {
+      setTrackColorInactiveProperty(newValue);
+      refreshForm();
+    }
 
   }
 }
