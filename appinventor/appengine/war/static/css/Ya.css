@@ -1160,7 +1160,7 @@ select.ode-PropertyEditor[disabled] {
 }
 
 .ode-SimpleMockComponent-selected {
-  border: 2px solid #fe8e01;
+  border: 2px solid #8fc202;
 }
 
 .ode-SimpleMockMapFeature-selected svg * {
