@@ -6,6 +6,7 @@
 
 package com.google.appinventor.client.editor.simple;
 
+import com.google.appinventor.client.editor.simple.components.MockSlider;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import static com.google.appinventor.client.Ode.MESSAGES;
@@ -47,6 +48,7 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
   private final ProjectEditor projectEditor;
 
   private MockForm form;
+  private MockSlider mockSlider;
 
   /**
    * Creates new component design panel for visible components.
@@ -217,6 +219,7 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
       return;
 
     form.changePreviewSize(width, height, idx);
+
     String info = " (" + height + "," + width + ")";
     if (idx == 0) {
       listboxPhoneTablet.setItemText(idx, MESSAGES.previewPhoneSize() + info);
@@ -240,6 +243,11 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
       return;
 
     form.changePhonePreview(idx, chosenVal);
+
+//    if(mockSlider != null) {
+//      mockSlider.getSlider().getPhonePreview(chosenVal);
+//    }
+
     String info = " (" + chosenVal + ")";
     if (idx == 0) {
       listboxPhonePreview.setItemText(idx, MESSAGES.previewAndroidMaterial() + info);

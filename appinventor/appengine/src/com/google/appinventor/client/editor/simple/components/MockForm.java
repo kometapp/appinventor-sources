@@ -152,6 +152,7 @@ public final class MockForm extends MockContainer {
    */
   private class PhoneBar extends Composite {
     private static final int HEIGHT = 24;
+    //private static final int IPADHEIGHT = 20;
 
     // UI elements
     private DockPanel bar;
@@ -435,7 +436,6 @@ public final class MockForm extends MockContainer {
     LANDSCAPE_HEIGHT = width;
 
     idxPhoneSize = idx;
-
     setPhoneStyle();
     if (landscape) {
       resizePanel(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT);
@@ -493,7 +493,13 @@ public final class MockForm extends MockContainer {
     screenWidth = newWidth;
     screenHeight = newHeight;
     if (landscape) {
-      usableScreenWidth = screenWidth - navigationBar.getHeight();
+      String val = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
+      if (val.equals("iOS")) {
+        usableScreenWidth = screenWidth;
+      } else {
+        usableScreenWidth = screenWidth - navigationBar.getHeight();
+      }
       usableScreenHeight = screenHeight - PhoneBar.HEIGHT - titleBar.getHeight();
     } else {
       usableScreenWidth = screenWidth;
@@ -741,7 +747,13 @@ public final class MockForm extends MockContainer {
       }
       setPhoneStyle();
       if (landscape) {
-        usableScreenWidth = screenWidth - navigationBar.getHeight();
+        String val = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
+        if (val.equals("iOS")) {
+          usableScreenWidth = screenWidth;
+        } else {
+          usableScreenWidth = screenWidth - navigationBar.getHeight();
+        }
         usableScreenHeight = screenHeight - PhoneBar.HEIGHT - titleBar.getHeight();
       } else {
         usableScreenWidth = screenWidth;
