@@ -8,7 +8,6 @@ package com.google.appinventor.client.editor.simple.components;
 
 import com.google.appinventor.client.editor.simple.SimpleEditor;
 import com.google.appinventor.client.editor.simple.components.utils.SVGPanel;
-import com.google.appinventor.client.output.OdeLog;
 import com.google.appinventor.shared.settings.SettingsConstants;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -36,7 +35,6 @@ public final class MockSlider extends MockVisibleComponent {
 
   public SVGPanel sliderGraphic;
   String phonePreview;
-  int sliderWidth = 200;
 
   /**
    * Creates a new MockSlider component.
@@ -55,14 +53,6 @@ public final class MockSlider extends MockVisibleComponent {
     paintSlider();
   }
 
-//  public final MockSlider getSlider() {
-//    if(initialized) {
-//      return this;
-//    } else {
-//      return null;
-//    }
-//  }
-
   /**
    * Draw the SVG graphic of the slider. It displays the left and
    * right sides of the slider, each with their own colors.
@@ -76,15 +66,24 @@ public final class MockSlider extends MockVisibleComponent {
     }
 
     sliderGraphic = new SVGPanel();
-    int sliderHeight = 100;  // pixels (Android asset is 28 px at 160 dpi)
+    int sliderHeight;
+    int sliderWidth;
 
     if(phonePreview.equals("Classic")) {
+      sliderHeight = 20;
+      sliderWidth = 120;
       classicSlider();
     } else if(phonePreview.equals("Android Material") ) {
+      sliderHeight = 20;
+      sliderWidth = 80;
       materialSlider();
     } else if (phonePreview.equals("Android Holo") ) {
+      sliderHeight = 20;
+      sliderWidth = 80;
       holoSlider();
     } else {
+      sliderHeight = 30;
+      sliderWidth = 80;
       iOSSlider();
     }
 
@@ -98,22 +97,17 @@ public final class MockSlider extends MockVisibleComponent {
     refreshForm();
   }
 
-//  public void getPhonePreview(String phonePreview){
-//    this.phonePreview = phonePreview;
-//    paintSlider();
-//  }
-
    private void classicSlider() {
-     sliderGraphic.setInnerSVG("<g id=\"Group_1\" data-name=\"Group 1\" transform=\"translate(-466 -210)\">\n" +
-             "<rect id=\"TrackLeft\" x=\"0\" y=\"0\"  width=\"40\" height=\"3\"  transform=\"translate(466 213)\" fill=\"" + trackColorActive + "\"/>\n" +
-             "<rect id=\"TrackRight\" width= \"40\" height=\"2\" transform=\"translate(506 213)\" fill=\"" + trackColorInactive +"\"/>\n" +
-             "<rect id=\"Thumb\" cx=\"7\" cy=\"7\" r=\"7\" transform=\"translate(503 210)\" fill=\"#80cdc6\"/>\n" +
-             "</g>");
+     sliderGraphic.setInnerSVG("<g id=\"Group_1\" data-name=\"Group 1\" transform=\"translate(-127 -186)\" style=\"isolation: isolate\">\n" +
+             "    <path id=\"Rectangle_1\" data-name=\"Rectangle 1\" d=\"M4,0H60a0,0,0,0,1,0,0V14a0,0,0,0,1,0,0H4a4,4,0,0,1-4-4V4A4,4,0,0,1,4,0Z\" transform=\"translate(127 189)\" fill=\"" +trackColorActive+ "\"/>\n" +
+             "    <path id=\"Rectangle_2\" data-name=\"Rectangle 2\" d=\"M0,0H56a4,4,0,0,1,4,4v6a4,4,0,0,1-4,4H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z\" transform=\"translate(187 189)\" fill=\"" +trackColorInactive+ "\"/>\n" +
+             "    <rect id=\"Rectangle_3\" data-name=\"Rectangle 3\" width=\"14\" height=\"20\" rx=\"2\" transform=\"translate(180 186)\" fill=\"#848482\"/>\n" +
+             "  </g>");
    }
 
   private void holoSlider() {
     sliderGraphic.setInnerSVG("<defs>\n" +
-            "    <filter id=\"Ellipse_1\" x=\"49\" y=\"0\" width=\"64\" height=\"66\" filterUnits=\"userSpaceOnUse\">\n" +
+            "    <filter id=\"Ellipse_1\" x=\"24\" y=\"0\" width=\"32\" height=\"32\" filterUnits=\"userSpaceOnUse\">\n" +
             "      <feOffset dy=\"3\" input=\"SourceAlpha\"/>\n" +
             "      <feGaussianBlur stdDeviation=\"3\" result=\"blur\"/>\n" +
             "      <feFlood flood-color=\"#33b5e5\" flood-opacity=\"0.161\"/>\n" +
@@ -121,13 +115,13 @@ public final class MockSlider extends MockVisibleComponent {
             "      <feComposite in=\"SourceGraphic\"/>\n" +
             "    </filter>\n" +
             "  </defs>\n" +
-            "  <g id=\"Group_1\" data-name=\"Group 1\" transform=\"translate(-117 -129)\">\n" +
-            "    <rect id=\"Rectangle_1\" data-name=\"Rectangle 1\" width=\"40\" height=\"4\" transform=\"translate(117 157)\" fill=\""+ trackColorActive +"\"/>\n" +
-            "    <rect id=\"Rectangle_2\" data-name=\"Rectangle 2\" width=\"40\" height=\"2\" transform=\"translate(197 158)\" fill=\""+ trackColorInactive +"\"/>\n" +
-            "    <g transform=\"matrix(1, 0, 0, 1, 117, 129)\" filter=\"url(#Ellipse_1)\">\n" +
-            "      <ellipse id=\"Ellipse_1-2\" data-name=\"Ellipse 1\" cx=\"14\" cy=\"15\" rx=\"14\" ry=\"15\" transform=\"translate(67 15)\" fill=\"#2abbf1\" opacity=\"0.64\"/>\n" +
+            "  <g id=\"Group_1\" data-name=\"Group 1\" transform=\"translate(-455 -294)\">\n" +
+            "    <rect id=\"Rectangle_1\" data-name=\"Rectangle 1\" width=\"40\" height=\"4\" transform=\"translate(455 305)\" fill=\"#c54949\"/>\n" +
+            "    <rect id=\"Rectangle_2\" data-name=\"Rectangle 2\" width=\"40\" height=\"4\" transform=\"translate(495 305)\" fill=\"#341313\"/>\n" +
+            "    <g transform=\"matrix(1, 0, 0, 1, 455, 294)\" filter=\"url(#Ellipse_1)\">\n" +
+            "      <circle id=\"Ellipse_1-2\" data-name=\"Ellipse 1\" cx=\"7\" cy=\"7\" r=\"7\" transform=\"translate(33 6)\" fill=\"#2abbf1\" opacity=\"0.64\"/>\n" +
             "    </g>\n" +
-            "    <ellipse id=\"Ellipse_2\" data-name=\"Ellipse 2\" cx=\"5.5\" cy=\"6\" rx=\"5.5\" ry=\"6\" transform=\"translate(192 153)\" fill=\"#33b5e5\"/>\n" +
+            "    <circle id=\"Ellipse_2\" data-name=\"Ellipse 2\" cx=\"2\" cy=\"2\" r=\"2\" transform=\"translate(493 305)\" fill=\"#33b5e5\"/>\n" +
             "  </g>");
   }
 
@@ -141,11 +135,25 @@ public final class MockSlider extends MockVisibleComponent {
    }
 
    private void iOSSlider() {
-     sliderGraphic.setInnerSVG("<g id=\"Group_1\" data-name=\"Group 1\" transform=\"translate(-466 -210)\">\n" +
-             "<rect id=\"TrackLeft\" x=\"0\" y=\"0\"  width=\"40\" height=\"3\"  transform=\"translate(466 213)\" fill=\"" + trackColorActive + "\"/>\n" +
-             "<rect id=\"TrackRight\" width= \"40\" height=\"2\" transform=\"translate(506 213)\" fill=\"" + trackColorInactive +"\"/>\n" +
-             "<circle id=\"Thumb\" cx=\"7\" cy=\"7\" r=\"7\" transform=\"translate(503 210)\" fill=\"#80cdc6\"/>\n" +
-             "</g>");
+     sliderGraphic.setInnerSVG("<defs>\n" +
+             "    <filter id=\"Knob\" x=\"22.575\" y=\"0\" width=\"35\" height=\"35\" filterUnits=\"userSpaceOnUse\">\n" +
+             "      <feOffset dy=\"3\" input=\"SourceAlpha\"/>\n" +
+             "      <feGaussianBlur stdDeviation=\"1\" result=\"blur\"/>\n" +
+             "      <feFlood flood-opacity=\"0.078\"/>\n" +
+             "      <feComposite operator=\"in\" in2=\"blur\"/>\n" +
+             "      <feComposite in=\"SourceGraphic\"/>\n" +
+             "    </filter>\n" +
+             "  </defs>\n" +
+             "  <g id=\"Controls_Sliders_Light_Basic\" data-name=\"Controls/Sliders/Light/Basic\" transform=\"translate(0 0.5)\">\n" +
+             "    <rect id=\"Track\" width=\"80\" height=\"1\" rx=\"0.5\" transform=\"translate(0 14)\" fill=\""+ trackColorInactive +"\"/>\n" +
+             "    <rect id=\"Fill\" width=\"40\" height=\"1\" rx=\"0.5\" transform=\"translate(0 14)\" fill=\""+ trackColorActive +"\"/>\n" +
+             "    <g transform=\"matrix(1, 0, 0, 1, 0, -0.5)\" filter=\"url(#Knob)\">\n" +
+             "      <g id=\"Knob-2\" data-name=\"Knob\" transform=\"translate(26.07 0.5)\" fill=\"#fff\" stroke=\"rgba(0,0,0,0.03)\" stroke-miterlimit=\"10\" stroke-width=\"0.5\">\n" +
+             "        <circle cx=\"14\" cy=\"14\" r=\"14\" stroke=\"none\"/>\n" +
+             "        <circle cx=\"14\" cy=\"14\" r=\"14.25\" fill=\"none\"/>\n" +
+             "      </g>\n" +
+             "    </g>\n" +
+             "  </g>");
    }
 
 

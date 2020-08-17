@@ -48,7 +48,6 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
   private final ProjectEditor projectEditor;
 
   private MockForm form;
-  private MockSlider mockSlider;
 
   /**
    * Creates new component design panel for visible components.
@@ -243,10 +242,6 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
       return;
 
     form.changePhonePreview(idx, chosenVal);
-
-//    if(mockSlider != null) {
-//      mockSlider.getSlider().getPhonePreview(chosenVal);
-//    }
 
     String info = " (" + chosenVal + ")";
     if (idx == 0) {
