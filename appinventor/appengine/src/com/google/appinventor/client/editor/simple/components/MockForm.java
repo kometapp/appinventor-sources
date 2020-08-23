@@ -359,6 +359,9 @@ public final class MockForm extends MockContainer {
   // Set of listeners for any changes of the form
   final HashSet<FormChangeListener> formChangeListeners = new HashSet<FormChangeListener>();
 
+  // Set of listeners for DesignPreviewChanges
+  final HashSet<DesignPreviewChangeListener> designPreviewChangeListeners = new HashSet<DesignPreviewChangeListener>();
+
   // Don't access the verticalScrollbarWidth field directly. Use getVerticalScrollbarWidth().
   private static int verticalScrollbarWidth;
 
@@ -471,6 +474,7 @@ public final class MockForm extends MockContainer {
     if(idxPhonePreviewStyle == 2) {
       setIOSPhoneStyle();
     }
+    fireDesignPreviewChange();
   }
 
   private void setIOSPhoneStyle() {
@@ -1082,6 +1086,26 @@ public final class MockForm extends MockContainer {
   }
 
   /**
+   * Adds an {@link DesignPreviewChangeListener} to the listener set if it isn't already
+   * there.
+   *
+   * @param listener the {@code DesignPreviewChangeListener} to be added
+   */
+  public void addDesignPreviewChangeListener(DesignPreviewChangeListener listener) {
+    designPreviewChangeListeners.add(listener);
+  }
+
+  /**
+   * Removes an {@link DesignPreviewChangeListener} from the listener list.
+   *
+   * @param listener the {@code DesignPreviewChangeListener} to be removed.
+   */
+
+  public void removeDesignPreviewChangeListener(DesignPreviewChangeListener listener) {
+    designPreviewChangeListeners.remove(listener);
+  }
+
+  /**
    * Triggers a component property change event to be sent to the listener on the listener list.
    */
   protected void fireComponentPropertyChanged(MockComponent component,
@@ -1124,6 +1148,15 @@ public final class MockForm extends MockContainer {
   protected void fireComponentSelectionChange(MockComponent component, boolean selected) {
     for (FormChangeListener listener : formChangeListeners) {
       listener.onComponentSelectionChange(component, selected);
+    }
+  }
+
+  /**
+   * Triggers the DesignChangePreviewChange listeners
+   */
+  protected void fireDesignPreviewChange() {
+    for (DesignPreviewChangeListener listener : designPreviewChangeListeners) {
+      listener.onDesignPreviewChanged();
     }
   }
 
