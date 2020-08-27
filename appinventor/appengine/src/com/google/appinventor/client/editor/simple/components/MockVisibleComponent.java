@@ -12,6 +12,7 @@ import com.google.appinventor.client.editor.youngandroid.properties.YoungAndroid
 import com.google.appinventor.client.widgets.properties.TextPropertyEditor;
 import com.google.appinventor.components.common.ComponentConstants;
 import com.google.appinventor.components.common.PropertyTypeConstants;
+import com.google.appinventor.shared.settings.SettingsConstants;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
@@ -66,6 +67,12 @@ public abstract class MockVisibleComponent extends MockComponent {
   // Useful colors
   protected static final String COLOR_NONE = "00FFFFFF";
   protected static final String COLOR_DEFAULT = "00000000";
+
+  // Stored Settings
+  protected String phonePreview = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                           SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
+  protected String colorAccent = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                           SettingsConstants.YOUNG_ANDROID_SETTINGS_ACCENT_COLOR);
 
   /**
    * Creates a new instance of a visible component.

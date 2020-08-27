@@ -27,7 +27,7 @@
 
 /* ==== start: skins for iOS : these are temporary mocks of iPhones and iPads */
 .ode-SimpleMockFormIOSLandscape {
-    background: url(../images/iphoneSevenLandscape.png);
+    background: url(../images/iPhoneXLandscape.png);
     background-repeat: no-repeat;
     background-position: right top;
     background-size: 100% 100%;
@@ -156,7 +156,6 @@
   font-family: iOSFont;
 }
 
-/*iOS Selected Component*/
-.ode-SimpleMockForm-iOS .ode-SimpleMockComponent-selected {
-  border: 2px solid #8fc202;
+.ode-SimpleMockForm-iOS .spinnerComponentStyle {
+  color: #007AFF;;
 }

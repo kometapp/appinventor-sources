@@ -14,16 +14,13 @@ package com.google.appinventor.client.editor.simple.components;
  * that need to draw different svg elements for different previews
  * should listen and act on these change notices.
  *
- * @author lizlooney@google.com (Liz Looney)
+ * @author  jis@mit.edu (Jeffrey I. Schiller)
  */
 public interface DesignPreviewChangeListener {
 
   /**
    * Invoked when the DesignPreview is Changed
    *
-   * @param component  the component whose property was changed
-   * @param propertyName the name of the property
-   * @param propertyValue the value of the property
    */
   void onDesignPreviewChanged();
 

@@ -6,15 +6,6 @@
 
 package com.google.appinventor.client.editor.simple.components;
 
-import static com.google.appinventor.client.Ode.MESSAGES;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
 import com.google.appinventor.client.editor.simple.SimpleEditor;
 import com.google.appinventor.client.editor.simple.components.utils.PropertiesUtil;
 import com.google.appinventor.client.editor.youngandroid.YaFormEditor;
@@ -31,20 +22,26 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style;
-
 import com.google.gwt.user.client.Timer;
-
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TreeItem;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.appinventor.client.Ode.MESSAGES;
 
 
 /**
@@ -1300,6 +1297,7 @@ public final class MockForm extends MockContainer {
       }
     } else if (propertyName.equals(PROPERTY_NAME_ACCENT_COLOR)) {
       setAccentColor(newValue);
+      fireDesignPreviewChange();
     } else if (propertyName.equals(PROPERTY_NAME_HORIZONTAL_ALIGNMENT)) {
       myLayout.setHAlignmentFlags(newValue);
       refreshForm();

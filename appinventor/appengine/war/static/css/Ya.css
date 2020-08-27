@@ -1025,11 +1025,11 @@ select.ode-PropertyEditor[disabled] {
 
 /* ==== start: skins for Android */
 .ode-SimpleMockFormPhoneLandscape {
-    background: url(../images/phoneLandscape.png);
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-size: 100% 100%;
-    padding: 11px 43px 7px 48px;
+  background: url(../images/phoneLandscape.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100% 100%;
+  padding: 11px 43px 7px 48px;
 }
 
 .ode-SimpleMockFormPhonePortrait {
@@ -1041,11 +1041,11 @@ select.ode-PropertyEditor[disabled] {
 }
 
 .ode-SimpleMockFormPhoneLandscapeTablet {
-    background: url(../images/phoneLandscapeTablet.png);
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-size: 100% 100%;
-    padding: 15px 56px 12px 64px;;
+  background: url(../images/phoneLandscapeTablet.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100% 100%;
+  padding: 15px 56px 12px 64px;;
 }
 .ode-SimpleMockFormPhonePortraitTablet {
   background: url(../images/phonePortraitTablet.png);

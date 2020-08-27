@@ -168,6 +168,17 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
   }
 
   @Override
+  int getHeightHint() {
+    int hint = super.getHeightHint();
+    if (hint == MockVisibleComponent.LENGTH_PREFERRED) {
+      float height = Float.parseFloat(getPropertyValue(MockVisibleComponent.PROPERTY_NAME_FONTSIZE));
+      return Math.round(height);
+    } else {
+      return hint;
+    }
+  }
+
+  @Override
   public void onPropertyChange(String propertyName, String newValue) {
     super.onPropertyChange(propertyName, newValue);
 

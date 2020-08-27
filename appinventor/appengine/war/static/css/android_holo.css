@@ -19,5 +19,12 @@
   color: rgba(0, 0, 0, 0.87);
 }
 
+/* Container for Holo Buttons*/
+.ode-SimpleMockForm-AndroidHolo .ode-SimpleMockComponent-selected .ode-SimpleMockButton  {
+  min-height: 2px;
+}
+
+
+
 
 
