@@ -39,7 +39,6 @@ public final class MockPasswordTextBox extends MockWrapper {
     passwordTextBoxWidget = new PasswordTextBox();
     // Change PasswordTextBox text so that it doesn't show up as a blank box in the designer.
     passwordTextBoxWidget.setText("**********");
-    passwordTextBoxWidget.addStyleName("passwordTextBoxComponentStyle");
     initWrapper(passwordTextBoxWidget);
   }
 
