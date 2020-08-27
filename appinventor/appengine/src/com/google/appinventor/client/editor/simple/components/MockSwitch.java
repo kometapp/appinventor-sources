@@ -98,10 +98,17 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
     switchGraphic.setWidth(switchWidth + "px");
     switchGraphic.setHeight(switchHeight + "px");
 
-    switchGraphic.setInnerSVG("<g  transform=\"translate(35.5 27.5)\">\n" +
-            "    <path  d=\"M6.838,12.553l-1.366-1.53L4.355,12.094l2.407,2.665L12.8,8.5l-1-1.012Z\" transform=\"translate(-35.466 -29.759)\" fill=\"#179213\" opacity=\"0.54\"/>\n" +
-            "    <rect width=\"16\" height=\"16\" rx=\"2\" transform=\"translate(-35 -27)\" fill=\"none\" stroke=\"#707070\" stroke-linejoin=\"round\" stroke-width=\"1\"/>\n" +
-            "  </g>");
+    if(checked) {
+      switchGraphic.setInnerSVG("<g  transform=\"translate(35.5 27.5)\">\n" +
+              "    <path  d=\"M6.838,12.553l-1.366-1.53L4.355,12.094l2.407,2.665L12.8,8.5l-1-1.012Z\" transform=\"translate(-35.466 -29.759)\" fill=\"#179213\" opacity=\"0.54\"/>\n" +
+              "    <rect width=\"16\" height=\"16\" rx=\"2\" transform=\"translate(-35 -27)\" fill=\"none\" stroke=\"#707070\" stroke-linejoin=\"round\" stroke-width=\"1\"/>\n" +
+              "  </g>");
+    } else {
+      switchGraphic.setInnerSVG("<g fill=\"#fff\" stroke=\"#707070\" stroke-width=\"1\">\n" +
+              "<rect width=\"16\" height=\"16\" rx=\"2\" stroke=\"none\"/>\n" +
+              "<rect x=\"0.5\" y=\"0.5\" width=\"15\" height=\"15\" rx=\"1.5\" fill=\"none\"/>\n" +
+              "</g>");
+    }
     panel.add(switchGraphic);
     panel.setCellWidth(switchGraphic, switchWidth + "px");
     panel.setCellHorizontalAlignment(switchGraphic, HasHorizontalAlignment.ALIGN_RIGHT);
@@ -118,7 +125,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
    */
   private void setThumbColorActiveProperty(String text) {
     thumbColorActive = MockComponentsUtil.getColor(text).toString();
-    if (checked) {
+    if (checked && !phonePreview.equals("Classic")) {
       DOM.setStyleAttribute(toggleWidget.getWidget(1).getElement().getFirstChildElement().getNextSiblingElement(),
               "fill", thumbColorActive);
     }
@@ -131,7 +138,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
    */
   private void setThumbColorInactiveProperty(String text) {
     thumbColorInactive = MockComponentsUtil.getColor(text).toString();
-    if (!checked) {
+    if (!checked && !phonePreview.equals("Classic")) {
       DOM.setStyleAttribute(toggleWidget.getWidget(1).getElement().getFirstChildElement().getNextSiblingElement(),
               "fill", thumbColorInactive);
     }
@@ -144,7 +151,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
    */
   private void setTrackColorActiveProperty(String text) {
     trackColorActive = MockComponentsUtil.getColor(text).toString();
-    if (checked) {
+    if (checked && !phonePreview.equals("Classic")) {
       DOM.setStyleAttribute(toggleWidget.getWidget(1).getElement().getFirstChildElement(), "fill",
               trackColorActive);
     }
@@ -157,7 +164,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
    */
   private void setTrackColorInactiveProperty(String text) {
     trackColorInactive = MockComponentsUtil.getColor(text).toString();
-    if (!checked) {
+    if (!checked && !phonePreview.equals("Classic")) {
       DOM.setStyleAttribute(toggleWidget.getWidget(1).getElement().getFirstChildElement(), "fill",
               trackColorInactive);
     }
