@@ -58,7 +58,7 @@ public final class MockForm extends MockContainer {
   private class TitleBar extends Composite {
     private static final int TITLEBAR_HEIGHT = 24;
     private static final int ACTIONBAR_HEIGHT = 56;
-    //private static final int NAVBAR_HEIGHT = 44;
+    private static final int NAVBAR_HEIGHT = 44;
 
     // UI elements
     private Label title;
@@ -110,7 +110,7 @@ public final class MockForm extends MockContainer {
     void setActionBar(boolean actionBar , boolean navBar) {
       this.actionBar = actionBar;
       this.navBar = navBar;
-      setSize("100%", (actionBar ? ACTIONBAR_HEIGHT : TITLEBAR_HEIGHT) + "px");
+      setSize("100%", (navBar ? NAVBAR_HEIGHT : (actionBar ? ACTIONBAR_HEIGHT : TITLEBAR_HEIGHT)) + "px");
       if (actionBar) {
         if (navBar) {
           removeStyleDependentName("ActionBar");
@@ -140,7 +140,7 @@ public final class MockForm extends MockContainer {
     }
 
     int getHeight() {
-      return actionBar ? ACTIONBAR_HEIGHT : TITLEBAR_HEIGHT;
+      return navBar ? NAVBAR_HEIGHT : (actionBar ? ACTIONBAR_HEIGHT : TITLEBAR_HEIGHT);
     }
   }
 
@@ -149,7 +149,8 @@ public final class MockForm extends MockContainer {
    */
   private class PhoneBar extends Composite {
     private static final int HEIGHT = 24;
-    //private static final int IPADHEIGHT = 20;
+    private static final int IPAD_HEIGHT = 20;
+    private static final int IPHONEX_HEIGHT = 44;
 
     // UI elements
     private DockPanel bar;
@@ -219,7 +220,12 @@ public final class MockForm extends MockContainer {
       iPadPhoneBarRightPanel = new HorizontalPanel();
       iPadPhoneBarRightPanel.setStylePrimaryName("ode-SimpleMockFormRightIPad");
 
+      //notch panel for iPhoneX Portrait
+      AbsolutePanel notchPanel = new AbsolutePanel();
+      notchPanel.setStylePrimaryName("ode-SimpleMockFormNotchPortrait");
+
       bar = new DockPanel();
+      bar.add(notchPanel, DockPanel.CENTER);
       setIconColor(blackIcons, size);
       bar.add(phoneBarLeftPanel, DockPanel.WEST);
       bar.add(phoneBarRightPanel, DockPanel.EAST);
@@ -229,7 +235,7 @@ public final class MockForm extends MockContainer {
       initWidget(bar);
       MockComponentsUtil.setWidgetBackgroundColor(bar, color);
       setStylePrimaryName("ode-SimpleMockFormPhoneBariOS");
-      setSize("100%", HEIGHT + "px");
+      setSize(size);
     }
 
     // changing Icons in Device Default and Black Title Text
@@ -249,6 +255,11 @@ public final class MockForm extends MockContainer {
         iPadPhoneBarLeftPanel.add(blackIcons ? iPadBlackIconsLeft : iPadWhiteIconsLeft);
         iPadPhoneBarRightPanel.add(blackIcons? iPadBlackIconsRight : iPadWhiteIconsRight);
       }
+    }
+
+    //set status bar size for the iOS theme
+    void setSize(int size) {
+      setSize("100%", (size == 0 ? IPHONEX_HEIGHT : IPAD_HEIGHT) + "px");
     }
   }
 
@@ -293,6 +304,8 @@ public final class MockForm extends MockContainer {
 
   private static final int PHONE_PORTRAIT_WIDTH = 320;
   private static final int PHONE_PORTRAIT_HEIGHT = 470 + 35; // Adds 35 for the navigation bar
+  private static final int PHONE_PORTRAIT_WIDTH_iPHONE = 1125;
+  private static final int PHONE_PORTRAIT_HEIGHT_iPHONE= 2436;
   private static final int PHONE_LANDSCAPE_WIDTH = PHONE_PORTRAIT_HEIGHT;
   private static final int PHONE_LANDSCAPE_HEIGHT = PHONE_PORTRAIT_WIDTH;
 
@@ -314,6 +327,7 @@ public final class MockForm extends MockContainer {
   private boolean blackIcons = false ;
   private int idxPhonePreviewStyle = -1;
   private String primaryDarkColor="&HFF41521C";
+  private String primaryColor="&HFFA5CF47";
   private boolean actionBar = false;
 
   // Property names
@@ -340,6 +354,7 @@ public final class MockForm extends MockContainer {
   AbsolutePanel formWidget;
   AbsolutePanel phoneWidget;
   AbsolutePanel responsivePanel;
+  AbsolutePanel notchPanel;
 
   ScrollPanel scrollPanel;
   private TitleBar titleBar;
@@ -394,6 +409,8 @@ public final class MockForm extends MockContainer {
     phoneWidget.setStylePrimaryName("ode-SimpleMockFormPhonePortrait");
     formWidget = new AbsolutePanel();
     formWidget.setStylePrimaryName("ode-SimpleMockForm");
+    notchPanel = new AbsolutePanel();
+    notchPanel.setStylePrimaryName("ode-SimpleMockFormNotchLandscape");
     responsivePanel = new AbsolutePanel();
 
     // Initialize mock form UI by adding the phone bar and title bar.
@@ -401,6 +418,8 @@ public final class MockForm extends MockContainer {
     responsivePanel.add(phoneBar);
     titleBar = new TitleBar();
     responsivePanel.add(titleBar);
+
+    rootPanel.add(notchPanel);
 
     // Put a ScrollPanel around the rootPanel.
     scrollPanel = new ScrollPanel(rootPanel);
@@ -485,6 +504,7 @@ public final class MockForm extends MockContainer {
       else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSPortraitMonitor");
     }
     phoneBar.setIconColor(blackIcons, idxPhoneSize);
+    phoneBar.setSize(idxPhoneSize);
   }
 
   /*
@@ -544,7 +564,7 @@ public final class MockForm extends MockContainer {
       formWidget.removeStyleDependentName("iOS");
       formWidget.addStyleDependentName("AndroidHolo");
     } else if (idxPhonePreviewStyle == 2) {
-      phoneBar = new PhoneBar(blackIcons, idxPhoneSize, primaryDarkColor);
+      phoneBar = new PhoneBar(blackIcons, idxPhoneSize, primaryColor);
       formWidget.removeStyleDependentName("AndroidMaterial");
       formWidget.removeStyleDependentName("AndroidHolo");
       formWidget.addStyleDependentName("iOS");
@@ -896,6 +916,7 @@ public final class MockForm extends MockContainer {
       color = ComponentConstants.DEFAULT_PRIMARY_COLOR;
     }
     titleBar.setBackgroundColor(color);
+    primaryColor = color;
   }
 
   private void setPrimaryColorDark(String color) {
@@ -1290,9 +1311,12 @@ public final class MockForm extends MockContainer {
       setTheme(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_PRIMARY_COLOR)) {
       setPrimaryColor(newValue);
+      if(idxPhonePreviewStyle == 2) {
+        MockComponentsUtil.setWidgetBackgroundColor(phoneBar, newValue);
+      }
     } else if (propertyName.equals(PROPERTY_NAME_PRIMARY_COLOR_DARK)) {
       setPrimaryColorDark(newValue);
-      if(idxPhonePreviewStyle == 0 || idxPhonePreviewStyle == 2) {
+      if(idxPhonePreviewStyle == 0) {
         MockComponentsUtil.setWidgetBackgroundColor(phoneBar, newValue);
       }
     } else if (propertyName.equals(PROPERTY_NAME_ACCENT_COLOR)) {
