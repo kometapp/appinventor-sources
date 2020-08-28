@@ -410,7 +410,9 @@ public final class MockForm extends MockContainer {
     formWidget = new AbsolutePanel();
     formWidget.setStylePrimaryName("ode-SimpleMockForm");
     notchPanel = new AbsolutePanel();
-    notchPanel.setStylePrimaryName("ode-SimpleMockFormNotchLandscape");
+    notchPanel.setStylePrimaryName("ode-SimpleMockFormNotch");
+    notchPanel.getElement().getStyle().clearPosition();
+    notchPanel.getElement().getStyle().clearOverflow();
     responsivePanel = new AbsolutePanel();
 
     // Initialize mock form UI by adding the phone bar and title bar.
@@ -419,7 +421,6 @@ public final class MockForm extends MockContainer {
     titleBar = new TitleBar();
     responsivePanel.add(titleBar);
 
-    rootPanel.add(notchPanel);
 
     // Put a ScrollPanel around the rootPanel.
     scrollPanel = new ScrollPanel(rootPanel);
@@ -432,6 +433,7 @@ public final class MockForm extends MockContainer {
     formWidget.add(navigationBar);
 
     phoneWidget.add(formWidget);
+    phoneWidget.add(notchPanel);
     initComponent(phoneWidget);
 
     // Set up the initial state of the vertical alignment property editor and its dropdowns

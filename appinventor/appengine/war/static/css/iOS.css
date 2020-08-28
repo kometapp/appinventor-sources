@@ -90,27 +90,28 @@
 }
 
 /* iPhoneX notch */
-.ode-SimpleMockFormNotchPortrait,
-.ode-SimpleMockFormNotchLandscape {
+.ode-SimpleMockFormNotch {
   display: none;
+  position: absolute;
+  background-color: #000000;
 }
 
-.ode-SimpleMockFormIOSPortrait .ode-SimpleMockFormNotchPortrait {
+.ode-SimpleMockFormIOSPortrait .ode-SimpleMockFormNotch {
   height: 30px;
   width : 200px;
   margin: 0 70px;
-  background-color: #000000;
   border-radius: 0 0 16px 16px;
   display: block;
+  top: 23px;
 }
 
-.ode-SimpleMockFormIOSLandscape .ode-SimpleMockFormNotchLandscape {
+.ode-SimpleMockFormIOSLandscape .ode-SimpleMockFormNotch {
   height: 200px;
   width : 30px;
-  margin: 70px 0;
-  background-color: #000000;
+  margin: 92px 0;
   border-radius: 0 16px 16px 0;
   display: block;
+  top: 0;
 }
 
 /* iOS PhoneBar */
