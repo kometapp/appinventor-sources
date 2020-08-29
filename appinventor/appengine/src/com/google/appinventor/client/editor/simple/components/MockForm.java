@@ -220,12 +220,7 @@ public final class MockForm extends MockContainer {
       iPadPhoneBarRightPanel = new HorizontalPanel();
       iPadPhoneBarRightPanel.setStylePrimaryName("ode-SimpleMockFormRightIPad");
 
-      //notch panel for iPhoneX Portrait
-      AbsolutePanel notchPanel = new AbsolutePanel();
-      notchPanel.setStylePrimaryName("ode-SimpleMockFormNotchPortrait");
-
       bar = new DockPanel();
-      bar.add(notchPanel, DockPanel.CENTER);
       setIconColor(blackIcons, size);
       bar.add(phoneBarLeftPanel, DockPanel.WEST);
       bar.add(phoneBarRightPanel, DockPanel.EAST);
@@ -261,6 +256,7 @@ public final class MockForm extends MockContainer {
     void setSize(int size) {
       setSize("100%", (size == 0 ? IPHONEX_HEIGHT : IPAD_HEIGHT) + "px");
     }
+
   }
 
   /*
@@ -304,8 +300,6 @@ public final class MockForm extends MockContainer {
 
   private static final int PHONE_PORTRAIT_WIDTH = 320;
   private static final int PHONE_PORTRAIT_HEIGHT = 470 + 35; // Adds 35 for the navigation bar
-  private static final int PHONE_PORTRAIT_WIDTH_iPHONE = 1125;
-  private static final int PHONE_PORTRAIT_HEIGHT_iPHONE= 2436;
   private static final int PHONE_LANDSCAPE_WIDTH = PHONE_PORTRAIT_HEIGHT;
   private static final int PHONE_LANDSCAPE_HEIGHT = PHONE_PORTRAIT_WIDTH;
 
@@ -313,6 +307,11 @@ public final class MockForm extends MockContainer {
   private static final int TABLET_PORTRAIT_HEIGHT = 640 + 35; // Adds 35 for the navigation bar
   private static final int TABLET_LANDSCAPE_WIDTH = TABLET_PORTRAIT_HEIGHT;
   private static final int TABLET_LANDSCAPE_HEIGHT = TABLET_PORTRAIT_WIDTH;
+
+  private static final int PHONE_PORTRAIT_WIDTH_iPHONE = 320;
+  private static final int PHONE_PORTRAIT_HEIGHT_iPHONE= 650;
+  private static final int PHONE_LANDSCAPE_WIDTH_iPHONE = PHONE_PORTRAIT_HEIGHT_iPHONE;
+  private static final int PHONE_LANDSCAPE_HEIGHT_iPHONE= PHONE_PORTRAIT_WIDTH_iPHONE;
 
   // These are default values but they can be changed in the changePreviewSize method
   private int PORTRAIT_WIDTH = PHONE_PORTRAIT_WIDTH;
@@ -450,7 +449,7 @@ public final class MockForm extends MockContainer {
   }
 
   public void changePreviewSize(int width, int height, int idx) {
-    // It will definitely be modified in the future to add more options.
+    // It will definitely be modified in the future to add more options.h
     PORTRAIT_WIDTH = width;
     PORTRAIT_HEIGHT = height;
     LANDSCAPE_WIDTH = height;
@@ -458,10 +457,22 @@ public final class MockForm extends MockContainer {
 
     idxPhoneSize = idx;
     setPhoneStyle();
+    updateScreenSize();
+  }
+
+  private void updateScreenSize() {
     if (landscape) {
-      resizePanel(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT);
+      if (idxPhoneSize == 0 && idxPhonePreviewStyle == 2) {
+        resizePanel(PHONE_LANDSCAPE_WIDTH_iPHONE, PHONE_LANDSCAPE_HEIGHT_iPHONE);
+      } else {
+        resizePanel(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT);
+      }
     } else {
-      resizePanel(width, height);
+      if (idxPhoneSize == 0 && idxPhonePreviewStyle == 2) {
+        resizePanel(PHONE_PORTRAIT_WIDTH_iPHONE, PHONE_PORTRAIT_HEIGHT_iPHONE);
+      } else {
+        resizePanel(PORTRAIT_WIDTH, PORTRAIT_HEIGHT);
+      }
     }
   }
 
@@ -475,6 +486,7 @@ public final class MockForm extends MockContainer {
     changePreviewFlag=true;
     changePreview();
     setPhoneStyle();
+    updateScreenSize();
   }
 
   private void setPhoneStyle() {
@@ -515,6 +527,7 @@ public final class MockForm extends MockContainer {
   private void resizePanel(int newWidth, int newHeight){
     screenWidth = newWidth;
     screenHeight = newHeight;
+
     if (landscape) {
       String val = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
               SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
@@ -528,7 +541,6 @@ public final class MockForm extends MockContainer {
       usableScreenWidth = screenWidth;
       usableScreenHeight = screenHeight - PhoneBar.HEIGHT - titleBar.getHeight() - navigationBar.getHeight();
     }
-
     rootPanel.setPixelSize(usableScreenWidth, usableScreenHeight);
     scrollPanel.setPixelSize(usableScreenWidth + getVerticalScrollbarWidth(), usableScreenHeight);
     formWidget.setPixelSize(screenWidth + getVerticalScrollbarWidth(), screenHeight);
@@ -757,21 +769,32 @@ public final class MockForm extends MockContainer {
   }
 
   private void setScreenOrientationProperty(String text) {
+    String val = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+        SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
+
     if (hasProperty(PROPERTY_NAME_WIDTH) && hasProperty(PROPERTY_NAME_HEIGHT) &&
         hasProperty(PROPERTY_NAME_SCROLLABLE)) {
       if (text.equalsIgnoreCase("landscape")) {
-        screenWidth = LANDSCAPE_WIDTH;
-        screenHeight = LANDSCAPE_HEIGHT;
+        if(val.equals("iOS")) {
+          screenWidth = PHONE_LANDSCAPE_WIDTH_iPHONE;
+          screenHeight = PHONE_LANDSCAPE_HEIGHT_iPHONE;
+        } else {
+          screenWidth = LANDSCAPE_WIDTH;
+          screenHeight = LANDSCAPE_HEIGHT;
+        }
         landscape = true;
       } else {
-        screenWidth = PORTRAIT_WIDTH;
-        screenHeight = PORTRAIT_HEIGHT;
+        if(val.equals("iOS")) {
+          screenWidth = PHONE_PORTRAIT_WIDTH_iPHONE;
+          screenHeight = PHONE_PORTRAIT_HEIGHT_iPHONE;
+        } else {
+          screenWidth = PORTRAIT_WIDTH;
+          screenHeight = PORTRAIT_HEIGHT;
+        }
         landscape = false;
       }
       setPhoneStyle();
       if (landscape) {
-        String val = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-                SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
         if (val.equals("iOS")) {
           usableScreenWidth = screenWidth;
         } else {

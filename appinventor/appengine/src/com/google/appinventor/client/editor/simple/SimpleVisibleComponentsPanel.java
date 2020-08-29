@@ -6,7 +6,6 @@
 
 package com.google.appinventor.client.editor.simple;
 
-import com.google.appinventor.client.editor.simple.components.MockSlider;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import static com.google.appinventor.client.Ode.MESSAGES;
@@ -120,17 +119,11 @@ public final class SimpleVisibleComponentsPanel extends Composite implements Dro
         int idx = listboxPhoneTablet.getSelectedIndex();
         int width = drop_lst[idx][0];
         int height = drop_lst[idx][1];
-        String previewStyle = projectEditor.getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-           SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME);
         String val = Integer.toString(idx) + "," + Integer.toString(width) + "," + Integer.toString(height);
         // here, we can change settings by putting val into it
         projectEditor.changeProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
             SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_TABLET, val);
-        if(idx == 0 && previewStyle.equals("iOS")) {
-          changeFormPreviewSize(0, 1125, 2436);
-        } else {
-          changeFormPreviewSize(idx, width, height);
-        }
+        changeFormPreviewSize(idx, width, height);
       }
     });
 
