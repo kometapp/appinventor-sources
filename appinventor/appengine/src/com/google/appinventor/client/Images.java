@@ -77,25 +77,25 @@ public interface Images extends Resources {
   /**
    * Phone status bar for iPhone containing white left side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPhoneXLeftWhiteFB.png")
+  @Source("com/google/appinventor/images/iPhoneLeftWhiteFB.png")
   ImageResource phonebariPhoneLeftWhite();
 
   /**
    * Phone status bar for iPhone containing white right side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPhoneXRightWhiteFB.png")
+  @Source("com/google/appinventor/images/iPhoneRightWhite.png")
   ImageResource phonebariPhoneRightWhite();
 
   /**
    * Phone status bar for iPhone containing black left side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPhoneXLeft.png")
+  @Source("com/google/appinventor/images/iPhoneLeftBlack.png")
   ImageResource phonebariPhoneLeftBlack();
 
   /**
    * Phone status bar for iPhone containing black right side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPhoneXRight.png")
+  @Source("com/google/appinventor/images/iPhoneRightBlack.png")
   ImageResource phonebariPhoneRightBlack();
 
   /**
@@ -107,7 +107,7 @@ public interface Images extends Resources {
   /**
    * Phone status bar for iPad containing black right side icons in the visual designer
    */
-  @Source("com/google/appinventor/images/iPadRightBlackFB.png")
+  @Source("com/google/appinventor/images/iPadRightBlack.png")
   ImageResource phonebariPadRightBlack();
 
   /**
