@@ -128,12 +128,10 @@ public final class MockSlider extends MockVisibleComponent {
 
    private void materialSlider() {
     String thumbColor = MockComponentsUtil.getColor(colorAccent).toString();
-     sliderGraphic.setInnerSVG("<g transform=\"translate(-327 -251)\">\n" +
-             "<g transform=\"translate(110 -85)\">\n" +
-             "<rect width=\"40\" height=\"4\" transform=\"translate(217 342)\" fill=\"" +trackColorActive+ "\"/>\n" +
-             "<rect width=\"40\" height=\"2\" transform=\"translate(257 343)\" fill=\"" +trackColorInactive+ "\"/>\n" +
-             "<circle cx=\"7\" cy=\"7\" r=\"7\" transform=\"translate(250 336)\" fill=\"" +thumbColor+ "\"/>\n" +
-             "</g>\n" +
+     sliderGraphic.setInnerSVG("<g transform=\"translate(-217 -337)\">\n" +
+             "<path d=\"M2,0H40a0,0,0,0,1,0,0V4a0,0,0,0,1,0,0H2A2,2,0,0,1,0,2V2A2,2,0,0,1,2,0Z\" transform=\"translate(217 342)\" fill=\"" + trackColorActive + "\"/>\n" +
+             "<path d=\"M0,0H38.25A1.75,1.75,0,0,1,40,1.75v0A1.75,1.75,0,0,1,38.25,3.5H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z\" transform=\"translate(257 342)\" fill=\"" + trackColorInactive+ "\"/>\n" +
+             "<circle cx=\"7\" cy=\"7\" r=\"7\" transform=\"translate(253 337)\" fill=\"" +thumbColor+ "\"/>\n" +
              "</g>");
    }
 

@@ -231,7 +231,11 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
       setTrackColorInactiveProperty(newValue);
       refreshForm();
     } else if (propertyName.equals(PROPERTY_NAME_HEIGHT)) {
-      paintSwitch();
+      if(phonePreview.equals("Classic")) {
+        paintClassicSwitch();
+      } else {
+        paintSwitch();
+      }
       refreshForm();
     }
   }
