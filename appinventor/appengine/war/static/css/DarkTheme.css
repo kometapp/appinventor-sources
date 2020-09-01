@@ -1,0 +1,79 @@
+/* -*- mode: css; css-indent-offset: 2; -*- */
+/*
+ * Copyright 2007-2011 Google Inc. All Rights Reserved.
+ * Copyright 2011-2017 MIT, All Rights Reserved.
+ * Released under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+.ode-SimpleMockFormDark {
+  height: auto !important;
+  background-color: #d2e0a6;
+  border: 2px solid black;
+  -webkit-display: flex;
+  display: flex;
+}
+/* Android Devices Dark MockForm*/
+.ode-SimpleMockFormPhoneLandscape .ode-SimpleMockFormDark,
+.ode-SimpleMockFormPhoneLandscapeTablet .ode-SimpleMockFormDark,
+.ode-SimpleMockFormPhoneLandscapeMonitor .ode-SimpleMockFormDark {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.ode-SimpleMockFormPhonePortrait .ode-SimpleMockFormDark,
+.ode-SimpleMockFormPhonePortraitTablet .ode-SimpleMockFormDark,
+.ode-SimpleMockFormPhonePortraitMonitor .ode-SimpleMockFormDark {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+/* iOS devices Dark MockForm*/
+.ode-SimpleMockFormIOSLandscape .ode-SimpleMockFormDark,
+.ode-SimpleMockFormIOSLandscapeTablet .ode-SimpleMockFormDark,
+.ode-SimpleMockFormIOSLandscapeMonitor .ode-SimpleMockFormDark {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.ode-SimpleMockFormIOSPortrait .ode-SimpleMockFormDark,
+.ode-SimpleMockFormIOSPortraitTablet .ode-SimpleMockFormDark,
+.ode-SimpleMockFormIOSPortraitMonitor .ode-SimpleMockFormDark {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+/* iPhoneX Dark Theme */
+.ode-SimpleMockFormIOSPortrait .ode-SimpleMockFormDark {
+  background-color: #d2e0a6;
+  border-radius: 30px;
+  -webkit-display: row;
+  display:flex;
+}
+
+.ode-SimpleMockFormIOSLandscape .ode-SimpleMockFormDark {
+  background-color: #d2e0a6;
+  border-radius: 30px;
+  -webkit-display: row;
+  display: flex;
+}
+
+/* Dark Theme Buttons in all previews */
+.ode-SimpleMockFormDark-AndroidMaterial .ode-SimpleMockButton {
+  padding: 4px 8px;
+  text-shadow: none;
+  background-color: #5a595b;
+  color: #fff;
+  border: 0;
+  border-radius: 2px;
+}
+
+.ode-SimpleMockFormDark-AndroidHolo .ode-SimpleMockButton {
+
+}
+
+.ode-SimpleMockFormDark-iOS .ode-SimpleMockButton {
+
+}
+
+

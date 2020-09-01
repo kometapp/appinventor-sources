@@ -47,7 +47,6 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
 
     panel = new HorizontalPanel();
     switchLabel = new InlineHTML();
-    panel.add(switchLabel);
     toggleWidget = panel;
     isInitialized = false;
     initWrapper(toggleWidget);
@@ -61,9 +60,11 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
   private void paintSwitch() {
     if (isInitialized) {
       panel.remove(switchGraphic);
+      panel.remove(switchLabel);
     } else {
       isInitialized = true;
     }
+    panel.add(switchLabel);
     switchGraphic = new SVGPanel();
     int switchHeight = 14;  // pixels (Android asset is 28 px at 160 dpi)
 
@@ -100,9 +101,9 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
 
     if(checked) {
       switchGraphic.setInnerSVG("<g  transform=\"translate(35.5 27.5)\">\n" +
-              "    <path  d=\"M6.838,12.553l-1.366-1.53L4.355,12.094l2.407,2.665L12.8,8.5l-1-1.012Z\" transform=\"translate(-35.466 -29.759)\" fill=\"#179213\" opacity=\"0.54\"/>\n" +
-              "    <rect width=\"16\" height=\"16\" rx=\"2\" transform=\"translate(-35 -27)\" fill=\"none\" stroke=\"#707070\" stroke-linejoin=\"round\" stroke-width=\"1\"/>\n" +
-              "  </g>");
+              "<path  d=\"M6.838,12.553l-1.366-1.53L4.355,12.094l2.407,2.665L12.8,8.5l-1-1.012Z\" transform=\"translate(-35.466 -29.759)\" fill=\"#179213\" opacity=\"0.54\"/>\n" +
+              "<rect width=\"16\" height=\"16\" rx=\"2\" transform=\"translate(-35 -27)\" fill=\"none\" stroke=\"#707070\" stroke-linejoin=\"round\" stroke-width=\"1\"/>\n" +
+              "</g>");
     } else {
       switchGraphic.setInnerSVG("<g fill=\"#fff\" stroke=\"#707070\" stroke-width=\"1\">\n" +
               "<rect width=\"16\" height=\"16\" rx=\"2\" stroke=\"none\"/>\n" +
@@ -111,7 +112,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
     }
     panel.add(switchGraphic);
     panel.setCellWidth(switchGraphic, switchWidth + "px");
-    panel.setCellHorizontalAlignment(switchGraphic, HasHorizontalAlignment.ALIGN_RIGHT);
+    panel.setCellHorizontalAlignment(switchGraphic, HasHorizontalAlignment.ALIGN_LEFT);
     panel.setCellVerticalAlignment(switchGraphic, HasVerticalAlignment.ALIGN_MIDDLE);
     panel.add(switchLabel);
     toggleWidget = panel;
@@ -200,13 +201,13 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
 
   @Override
   protected void setFontSizeProperty(String text) {
-    MockComponentsUtil.setWidgetFontSize(toggleWidget.getWidget(0), text);
+    MockComponentsUtil.setWidgetFontSize(switchLabel, text);
     updatePreferredSize();
   }
 
   @Override
   protected void setFontTypefaceProperty(String text) {
-    MockComponentsUtil.setWidgetFontTypeface(toggleWidget.getWidget(0), text);
+    MockComponentsUtil.setWidgetFontTypeface(switchLabel, text);
     updatePreferredSize();
   }
 

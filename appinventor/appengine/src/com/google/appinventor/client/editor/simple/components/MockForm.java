@@ -420,7 +420,6 @@ public final class MockForm extends MockContainer {
     titleBar = new TitleBar();
     responsivePanel.add(titleBar);
 
-
     // Put a ScrollPanel around the rootPanel.
     scrollPanel = new ScrollPanel(rootPanel);
     responsivePanel.add(scrollPanel);
@@ -479,8 +478,8 @@ public final class MockForm extends MockContainer {
   public void changePhonePreview(int idx, String previewName ) {
     // storing the new preview style in the user settings
     editor.getProjectEditor().changeProjectSettingsProperty(
-      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-      SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW, previewName);
+            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+            SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW, previewName);
 
     idxPhonePreviewStyle=idx;
     changePreviewFlag=true;
@@ -689,11 +688,11 @@ public final class MockForm extends MockContainer {
   @Override
   protected void addWidthHeightProperties() {
     addProperty(PROPERTY_NAME_WIDTH, "" + PORTRAIT_WIDTH, null,
-        PropertyTypeConstants.PROPERTY_TYPE_LENGTH, null,
-        new YoungAndroidLengthPropertyEditor());
+            PropertyTypeConstants.PROPERTY_TYPE_LENGTH, null,
+            new YoungAndroidLengthPropertyEditor());
     addProperty(PROPERTY_NAME_HEIGHT, "" + LENGTH_PREFERRED, null,
-        PropertyTypeConstants.PROPERTY_TYPE_LENGTH, null,
-        new YoungAndroidLengthPropertyEditor());
+            PropertyTypeConstants.PROPERTY_TYPE_LENGTH, null,
+            new YoungAndroidLengthPropertyEditor());
   }
 
   @Override
@@ -701,7 +700,7 @@ public final class MockForm extends MockContainer {
     // We use the Width and Height properties to make the form appear correctly in the designer,
     // but they aren't actually persisted to the .scm file.
     if (propertyName.equals(PROPERTY_NAME_WIDTH) ||
-        propertyName.equals(PROPERTY_NAME_HEIGHT)) {
+            propertyName.equals(PROPERTY_NAME_HEIGHT)) {
       return false;
     }
     return super.isPropertyPersisted(propertyName);
@@ -718,17 +717,17 @@ public final class MockForm extends MockContainer {
 
       // The Icon property actually applies to the application and is only visible on Screen1.
       case PROPERTY_NAME_ICON:
-      // The VersionName property actually applies to the application and is only visible on Screen1.
+        // The VersionName property actually applies to the application and is only visible on Screen1.
       case PROPERTY_NAME_VNAME:
-      // The VersionCode property actually applies to the application and is only visible on Screen1.
+        // The VersionCode property actually applies to the application and is only visible on Screen1.
       case PROPERTY_NAME_VCODE:
-      // The Sizing property actually applies to the application and is only visible on Screen1.
+        // The Sizing property actually applies to the application and is only visible on Screen1.
       case PROPERTY_NAME_SIZING:
-      // The AppName property actually applies to the application and is only visible on Screen1.
+        // The AppName property actually applies to the application and is only visible on Screen1.
       case PROPERTY_NAME_ANAME:
-      // The ShowListsAsJson property actually applies to the application and is only visible on Screen1.
+        // The ShowListsAsJson property actually applies to the application and is only visible on Screen1.
       case PROPERTY_NAME_SHOW_LISTS_AS_JSON:
-      // The TutorialURL property actually applies to the application and is only visible on Screen1.
+        // The TutorialURL property actually applies to the application and is only visible on Screen1.
       case PROPERTY_NAME_TUTORIAL_URL:
       case PROPERTY_NAME_BLOCK_SUBSET:
       case PROPERTY_NAME_PRIMARY_COLOR:
@@ -770,10 +769,9 @@ public final class MockForm extends MockContainer {
 
   private void setScreenOrientationProperty(String text) {
     String val = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-        SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
-
+            SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
     if (hasProperty(PROPERTY_NAME_WIDTH) && hasProperty(PROPERTY_NAME_HEIGHT) &&
-        hasProperty(PROPERTY_NAME_SCROLLABLE)) {
+            hasProperty(PROPERTY_NAME_SCROLLABLE)) {
       if (text.equalsIgnoreCase("landscape")) {
         if(val.equals("iOS")) {
           screenWidth = PHONE_LANDSCAPE_WIDTH_iPHONE;
@@ -829,8 +827,8 @@ public final class MockForm extends MockContainer {
     // for icon (empty string). We need to ignore that.
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_ICON, icon);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_ICON, icon);
     }
   }
 
@@ -840,8 +838,8 @@ public final class MockForm extends MockContainer {
     // for VersionCode (1). We need to ignore that.
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_VERSION_CODE, vcode);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_VERSION_CODE, vcode);
     }
   }
 
@@ -851,8 +849,8 @@ public final class MockForm extends MockContainer {
     // for VersionName (1.0). We need to ignore that.
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_VERSION_NAME, vname);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_VERSION_NAME, vname);
     }
   }
 
@@ -862,8 +860,8 @@ public final class MockForm extends MockContainer {
     // default value for CompatibilityProperty (false). We need to ignore that.
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_SIZING, sizingProperty);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_SIZING, sizingProperty);
     }
   }
 
@@ -873,8 +871,8 @@ public final class MockForm extends MockContainer {
     // default value for ShowListsAsJsonProperty (false). We need to ignore that.
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_SHOW_LISTS_AS_JSON, asJson);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_SHOW_LISTS_AS_JSON, asJson);
     }
   }
 
@@ -884,18 +882,18 @@ public final class MockForm extends MockContainer {
     // default value for TutorialURL (""). We need to ignore that.
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_TUTORIAL_URL, asJson);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_TUTORIAL_URL, asJson);
     }
   }
 
   private void setBlockSubsetProperty(String asJson) {
     //This property applies to the application and is only visible on Screen1. When we load a form that is
-    //not Screen1, this method will be called with the default value for SubsetJson (""). We need to ignore that. 
+    //not Screen1, this method will be called with the default value for SubsetJson (""). We need to ignore that.
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-        SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-        SettingsConstants.YOUNG_ANDROID_SETTINGS_BLOCK_SUBSET, asJson);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_BLOCK_SUBSET, asJson);
       if (editor.isLoadComplete()) {
         ((YaFormEditor)editor).reloadComponentPalette(asJson);
       }
@@ -907,8 +905,8 @@ public final class MockForm extends MockContainer {
     // When we load a form that is not Screen1, this method will be called with the default value
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_APP_NAME, aname);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_APP_NAME, aname);
     }
   }
 
@@ -921,8 +919,8 @@ public final class MockForm extends MockContainer {
     this.actionBar = Boolean.parseBoolean(actionBar);
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_ACTIONBAR, actionBar);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_ACTIONBAR, actionBar);
     }
     titleBar.setActionBar(this.actionBar, false);
     if (initialized) {
@@ -933,8 +931,8 @@ public final class MockForm extends MockContainer {
   private void setPrimaryColor(String color) {
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR, color);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR, color);
     }
     if (color.equals("&H00000000")) {
       // Replace Default with actual default color
@@ -947,8 +945,8 @@ public final class MockForm extends MockContainer {
   private void setPrimaryColorDark(String color) {
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR_DARK, color);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR_DARK, color);
     }
     primaryDarkColor= color;
   }
@@ -956,16 +954,16 @@ public final class MockForm extends MockContainer {
   private void setAccentColor(String color) {
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_ACCENT_COLOR, color);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_ACCENT_COLOR, color);
     }
   }
 
   private void setTheme(String theme) {
     if (editor.isScreen1()) {
       editor.getProjectEditor().changeProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME, theme);
+              SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+              SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME, theme);
     }
     if (theme.equals("AppTheme.Light")) {
       final String newColor = "&HFF000000";
@@ -982,9 +980,24 @@ public final class MockForm extends MockContainer {
     }
     if (theme.equals("AppTheme")) {
       blackIcons=false;
-      formWidget.addStyleDependentName("Dark");
+      formWidget.setStylePrimaryName("ode-SimpleMockFormDark");
     } else {
-      formWidget.removeStyleDependentName("Dark");
+      formWidget.setStylePrimaryName("ode-SimpleMockForm");
+    }
+
+    // Resetting the MockForm with new preview styles
+    if (idxPhonePreviewStyle == 0) {
+      formWidget.removeStyleDependentName("AndroidHolo");
+      formWidget.removeStyleDependentName("iOS");
+      formWidget.addStyleDependentName("AndroidMaterial");
+    } else if (idxPhonePreviewStyle == 1) {
+      formWidget.removeStyleDependentName("AndroidMaterial");
+      formWidget.removeStyleDependentName("iOS");
+      formWidget.addStyleDependentName("AndroidHolo");
+    } else if (idxPhonePreviewStyle == 2) {
+      formWidget.removeStyleDependentName("AndroidMaterial");
+      formWidget.removeStyleDependentName("AndroidHolo");
+      formWidget.addStyleDependentName("iOS");
     }
 
     if(idxPhonePreviewStyle == 2) {
@@ -1054,7 +1067,7 @@ public final class MockForm extends MockContainer {
     LayoutInfo formLayoutInfo = layoutInfoMap.get(this);
     layout.layoutChildren(formLayoutInfo);
     rootPanel.setPixelSize(formLayoutInfo.width,
-        Math.max(formLayoutInfo.height, usableScreenHeight));
+            Math.max(formLayoutInfo.height, usableScreenHeight));
 
     for (LayoutInfo layoutInfo : layoutInfoMap.values()) {
       layoutInfo.cleanUp();
@@ -1073,7 +1086,7 @@ public final class MockForm extends MockContainer {
    * when layoutChildren is called.
    */
   private static void collectLayoutInfos(Map<MockComponent, LayoutInfo> layoutInfoMap,
-      MockComponent component) {
+                                         MockComponent component) {
 
     LayoutInfo layoutInfo = component.createLayoutInfo(layoutInfoMap);
 
@@ -1152,7 +1165,7 @@ public final class MockForm extends MockContainer {
    * Triggers a component property change event to be sent to the listener on the listener list.
    */
   protected void fireComponentPropertyChanged(MockComponent component,
-      String propertyName, String propertyValue) {
+                                              String propertyName, String propertyValue) {
     for (FormChangeListener listener : formChangeListeners) {
       listener.onComponentPropertyChanged(component, propertyName, propertyValue);
     }
@@ -1234,7 +1247,7 @@ public final class MockForm extends MockContainer {
     // Remove an previously selected component from the list of selected components, but only if
     // there would still be something selected.
     if (shouldSelectMultipleComponents && selectedComponents.contains(newSelectedComponent)
-        && selectedComponents.size() > 1) {
+            && selectedComponents.size() > 1) {
       selectedComponents.remove(newSelectedComponent);
       newSelectedComponent.onSelectedChange(false);
       return;
@@ -1386,41 +1399,41 @@ public final class MockForm extends MockContainer {
     // definitive.
     if (!editor.isScreen1()) {
       properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_SIZING,
-        editor.getProjectEditor().getProjectSettingsProperty(
-          SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-          SettingsConstants.YOUNG_ANDROID_SETTINGS_SIZING));
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_SIZING));
       properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_SHOW_LISTS_AS_JSON,
-          editor.getProjectEditor().getProjectSettingsProperty(
-            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_SHOW_LISTS_AS_JSON));
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_SHOW_LISTS_AS_JSON));
       properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_TUTORIAL_URL,
-          editor.getProjectEditor().getProjectSettingsProperty(
-            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_TUTORIAL_URL));
-      properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_BLOCK_SUBSET, 
-          editor.getProjectEditor().getProjectSettingsProperty(
-            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_BLOCK_SUBSET));
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_TUTORIAL_URL));
+      properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_BLOCK_SUBSET,
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_BLOCK_SUBSET));
       properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_ACTIONBAR,
-          editor.getProjectEditor().getProjectSettingsProperty(
-            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_ACTIONBAR));
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_ACTIONBAR));
       properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME,
-          editor.getProjectEditor().getProjectSettingsProperty(
-            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME));
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_THEME));
       properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR,
-          editor.getProjectEditor().getProjectSettingsProperty(
-            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR));
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR));
       properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR_DARK,
-          editor.getProjectEditor().getProjectSettingsProperty(
-            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR_DARK));
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_PRIMARY_COLOR_DARK));
       properties.changePropertyValue(SettingsConstants.YOUNG_ANDROID_SETTINGS_ACCENT_COLOR,
-          editor.getProjectEditor().getProjectSettingsProperty(
-            SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_ACCENT_COLOR));
+              editor.getProjectEditor().getProjectSettingsProperty(
+                      SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
+                      SettingsConstants.YOUNG_ANDROID_SETTINGS_ACCENT_COLOR));
     }
     return properties;
   }

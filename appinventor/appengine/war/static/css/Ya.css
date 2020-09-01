@@ -1228,11 +1228,6 @@ path.ode-SimpleMockMapFeature-selected {
   color: rgba(0, 0, 0, 0.87);
 }
 
-.ode-SimpleMockForm-Dark .ode-SimpleMockButton {
-  background-color: #5a595b;
-  color: #fff;
-}
-
 /* class for the ListView Mock component */
 .listViewComponentStyle {
   width: 315px;

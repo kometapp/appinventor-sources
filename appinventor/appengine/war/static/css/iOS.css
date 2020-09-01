@@ -194,6 +194,22 @@
   font-family: iOSFont;
 }
 
+/* Hover for iOS Button */
+.ode-SimpleMockForm-iOS .ode-SimpleMockButton:hover {
+  color: #007AFF;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  background-color: #F8F8FF;
+  *background-color: #fcfcfc;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+
+/* iOS Spinner*/
 .ode-SimpleMockForm-iOS .spinnerComponentStyle {
   color: #007AFF;;
 }
