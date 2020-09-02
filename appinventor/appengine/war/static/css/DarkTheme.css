@@ -35,18 +35,9 @@
 }
 
 /* iPhoneX Dark Theme */
+.ode-SimpleMockFormIOSLandscape .ode-SimpleMockFormDark,
 .ode-SimpleMockFormIOSPortrait .ode-SimpleMockFormDark {
-  background-color: #d2e0a6;
   border-radius: 30px;
-  -webkit-display: row;
-  display:flex;
-}
-
-.ode-SimpleMockFormIOSLandscape .ode-SimpleMockFormDark {
-  background-color: #d2e0a6;
-  border-radius: 30px;
-  -webkit-display: row;
-  display: flex;
 }
 
 /* Dark Theme Buttons in all previews */
@@ -60,9 +51,15 @@
 }
 
 .ode-SimpleMockFormDark-AndroidHolo .ode-SimpleMockButton {
-
+  min-height: 34px;
+  padding: 4px 8px;
+  background-color: #353839;
+  color: white;
 }
 
 .ode-SimpleMockFormDark-iOS .ode-SimpleMockButton {
-
+  padding: 4px 8px;
+  background-color: black;
+  color : rgba(10, 132, 255);
+  font-family: iOSFont;
 }

@@ -511,10 +511,12 @@ public final class MockForm extends MockContainer {
       if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSLandscape");
       else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSLandscapeTablet");
       else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSLandscapeMonitor");
+      navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarLandscapeIOS");
     } else {
       if (idxPhoneSize == 0) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSPortrait");
       else if (idxPhoneSize == 1) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSPortraitTablet");
       else if (idxPhoneSize == 2) phoneWidget.setStylePrimaryName("ode-SimpleMockFormIOSPortraitMonitor");
+      navigationBar.setStylePrimaryName("ode-SimpleMockFormNavigationBarPortraitIOS");
     }
     phoneBar.setIconColor(blackIcons, idxPhoneSize);
     phoneBar.setSize(idxPhoneSize);
@@ -593,8 +595,8 @@ public final class MockForm extends MockContainer {
       responsivePanel.add(scrollPanel);
 
       formWidget.add(responsivePanel);
+      formWidget.add(navigationBar);
       if (idxPhonePreviewStyle != 2)  {
-        formWidget.add(navigationBar);
         titleBar.setActionBar(actionBar, false);
       } else {
         titleBar.setActionBar(true, true);
@@ -773,7 +775,7 @@ public final class MockForm extends MockContainer {
     if (hasProperty(PROPERTY_NAME_WIDTH) && hasProperty(PROPERTY_NAME_HEIGHT) &&
             hasProperty(PROPERTY_NAME_SCROLLABLE)) {
       if (text.equalsIgnoreCase("landscape")) {
-        if(val.equals("iOS")) {
+        if (val.equals("iOS") && idxPhoneSize == 0) {
           screenWidth = PHONE_LANDSCAPE_WIDTH_iPHONE;
           screenHeight = PHONE_LANDSCAPE_HEIGHT_iPHONE;
         } else {
@@ -782,7 +784,7 @@ public final class MockForm extends MockContainer {
         }
         landscape = true;
       } else {
-        if(val.equals("iOS")) {
+        if(val.equals("iOS") && idxPhoneSize == 0) {
           screenWidth = PHONE_PORTRAIT_WIDTH_iPHONE;
           screenHeight = PHONE_PORTRAIT_HEIGHT_iPHONE;
         } else {
@@ -967,19 +969,19 @@ public final class MockForm extends MockContainer {
     }
     if (theme.equals("AppTheme.Light")) {
       final String newColor = "&HFF000000";
-      blackIcons=true;
+      blackIcons = true;
       MockComponentsUtil.setWidgetTextColor(titleBar.bar, newColor);
       MockComponentsUtil.setWidgetTextColor(titleBar.menuButton, newColor);
       MockComponentsUtil.setWidgetTextColor(titleBar.title, newColor);
     } else {
       final String newColor = "&HFFFFFFFF";
-      blackIcons=false;
+      blackIcons = false;
       MockComponentsUtil.setWidgetTextColor(titleBar.bar, newColor);
       MockComponentsUtil.setWidgetTextColor(titleBar.menuButton, newColor);
       MockComponentsUtil.setWidgetTextColor(titleBar.title, newColor);
     }
     if (theme.equals("AppTheme")) {
-      blackIcons=false;
+      blackIcons = false;
       formWidget.setStylePrimaryName("ode-SimpleMockFormDark");
     } else {
       formWidget.setStylePrimaryName("ode-SimpleMockForm");

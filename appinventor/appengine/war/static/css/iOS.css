@@ -1,4 +1,4 @@
-* -*- mode: css; css-indent-offset: 2; -*- */
+/* -*- mode: css; css-indent-offset: 2; -*- */
 /*
  * Copyright 2007-2011 Google Inc. All Rights Reserved.
  * Copyright 2011-2017 MIT, All Rights Reserved.
@@ -11,18 +11,9 @@
   src: url('../fonts/Helvetica.ttf');
 }
 
+.ode-SimpleMockFormIOSLandscape .ode-SimpleMockForm,
 .ode-SimpleMockFormIOSPortrait .ode-SimpleMockForm {
-  background-color: #d2e0a6;
   border-radius: 30px;
-  -webkit-display: row;
-  display:flex;
-}
-
-.ode-SimpleMockFormIOSLandscape .ode-SimpleMockForm {
-  background-color: #d2e0a6;
-  border-radius: 30px;
-  -webkit-display: row;
-  display: flex;
 }
 
 .ode-SimpleMockFormIOSLandscape .ode-SimpleMockForm,
@@ -142,7 +133,7 @@
 
 .ode-SimpleMockFormRightIPad {
   right: 0;
-  padding: 2px 4px 3px 2px;
+   padding: 2px 4px 3px 2px;
   position: absolute;
   display: none;
 }
@@ -184,6 +175,27 @@
 .ode-SimpleMockFormTitleBar-NavBar .ode-SimpleMockFormIconIOSWhite,
 .ode-SimpleMockFormTitleBar-NavBar .ode-SimpleMockFormIconIOSBlack {
   display: inline-block;
+}
+
+/* iPhoneX bottom navigation bar */
+.ode-SimpleMockFormNavigationBarPortraitIOS,
+.ode-SimpleMockFormNavigationBarLandscapeIOS {
+  position: absolute;
+  background-color: #000000;
+}
+
+.ode-SimpleMockFormNavigationBarPortraitIOS {
+  min-height: 4px;
+  min-width: 110px;
+  border-radius: 3px;
+  display: block;
+  left: 50%;
+  bottom: 1%;
+  transform: translate(-50%);
+}
+
+.ode-SimpleMockFormNavigationBarLandscapeIOS {
+  display: none;
 }
 
 /* iOS Button */

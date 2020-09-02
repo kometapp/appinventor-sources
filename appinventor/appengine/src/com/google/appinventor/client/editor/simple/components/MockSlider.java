@@ -30,8 +30,6 @@ public final class MockSlider extends MockVisibleComponent {
   private boolean initialized = false;
   public String trackColorActive = "orange";
   public String trackColorInactive = "gray";
-//  protected String phonePreview;
-//  protected String colorAccent;
 
   public SVGPanel sliderGraphic;
 
@@ -46,10 +44,6 @@ public final class MockSlider extends MockVisibleComponent {
     // Initialize mock slider UI
     panel = new HorizontalPanel();
     panel.setStylePrimaryName("ode-SimpleMockComponent");
-//    phonePreview = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-//            SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
-//    colorAccent = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-//            SettingsConstants.YOUNG_ANDROID_SETTINGS_ACCENT_COLOR);
     initComponent(panel);
     paintSlider();
   }

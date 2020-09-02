@@ -258,12 +258,12 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
   @Override
   public void onDesignPreviewChanged() {
     phonePreview = editor.getProjectEditor().getProjectSettingsProperty(SettingsConstants.PROJECT_YOUNG_ANDROID_SETTINGS,
-            SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
+      SettingsConstants.YOUNG_ANDROID_SETTINGS_PHONE_PREVIEW);
     if(phonePreview.equals("Classic")) {
       paintClassicSwitch();
     } else {
       paintSwitch();
     }
-
   }
+
 }
