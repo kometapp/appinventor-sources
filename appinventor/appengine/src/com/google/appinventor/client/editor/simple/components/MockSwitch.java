@@ -82,6 +82,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
     panel.setCellHorizontalAlignment(switchGraphic, HasHorizontalAlignment.ALIGN_RIGHT);
     panel.setCellVerticalAlignment(switchGraphic, HasVerticalAlignment.ALIGN_MIDDLE);
     toggleWidget = panel;
+    updatePreferredSize();
     refreshForm();
   }
 
@@ -91,6 +92,7 @@ public final class MockSwitch extends MockToggleBase<HorizontalPanel> {
       panel.remove(switchGraphic);
     } else {
       isInitialized = true;
+      switchLabel.setText(switchLabel.getText());
     }
     switchGraphic = new SVGPanel();
     int switchHeight = 20;  // pixels (Android asset is 28 px at 160 dpi)

@@ -1,4 +1,4 @@
-/* -*- mode: css; css-indent-offset: 2; -*- */
+* -*- mode: css; css-indent-offset: 2; -*- */
 /*
  * Copyright 2007-2011 Google Inc. All Rights Reserved.
  * Copyright 2011-2017 MIT, All Rights Reserved.
@@ -142,7 +142,7 @@
 
 .ode-SimpleMockFormRightIPad {
   right: 0;
-   padding: 2px 4px 3px 2px;
+  padding: 2px 4px 3px 2px;
   position: absolute;
   display: none;
 }

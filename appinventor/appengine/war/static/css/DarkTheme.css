@@ -13,22 +13,10 @@
   -webkit-display: flex;
   display: flex;
 }
-/* Android Devices Dark MockForm*/
+
 .ode-SimpleMockFormPhoneLandscape .ode-SimpleMockFormDark,
 .ode-SimpleMockFormPhoneLandscapeTablet .ode-SimpleMockFormDark,
-.ode-SimpleMockFormPhoneLandscapeMonitor .ode-SimpleMockFormDark {
-  -webkit-flex-direction: row;
-  flex-direction: row;
-}
-
-.ode-SimpleMockFormPhonePortrait .ode-SimpleMockFormDark,
-.ode-SimpleMockFormPhonePortraitTablet .ode-SimpleMockFormDark,
-.ode-SimpleMockFormPhonePortraitMonitor .ode-SimpleMockFormDark {
-  -webkit-flex-direction: column;
-  flex-direction: column;
-}
-
-/* iOS devices Dark MockForm*/
+.ode-SimpleMockFormPhoneLandscapeMonitor .ode-SimpleMockFormDark,
 .ode-SimpleMockFormIOSLandscape .ode-SimpleMockFormDark,
 .ode-SimpleMockFormIOSLandscapeTablet .ode-SimpleMockFormDark,
 .ode-SimpleMockFormIOSLandscapeMonitor .ode-SimpleMockFormDark {
@@ -36,6 +24,9 @@
   flex-direction: row;
 }
 
+.ode-SimpleMockFormPhonePortrait .ode-SimpleMockFormDark,
+.ode-SimpleMockFormPhonePortraitTablet .ode-SimpleMockFormDark,
+.ode-SimpleMockFormPhonePortraitMonitor .ode-SimpleMockFormDark,
 .ode-SimpleMockFormIOSPortrait .ode-SimpleMockFormDark,
 .ode-SimpleMockFormIOSPortraitTablet .ode-SimpleMockFormDark,
 .ode-SimpleMockFormIOSPortraitMonitor .ode-SimpleMockFormDark {
@@ -75,5 +66,3 @@
 .ode-SimpleMockFormDark-iOS .ode-SimpleMockButton {
 
 }
-
-
